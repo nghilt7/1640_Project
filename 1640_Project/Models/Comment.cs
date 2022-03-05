@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace _1640_Project.Models
+{
+    public class Comment
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int CommentID { get; set; }
+        public string Content { get; set; }
+        public DateTime CommentDate { get; set; }
+        public int IdeaID { get; set; }
+        public int UserID { get; set; }
+        public virtual List<Vote> Votes { get; set; }
+    }
+}
