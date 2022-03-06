@@ -70,22 +70,22 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login([Bind(Include = "Name,PasswordHash")] User user)
+        public ActionResult Login([Bind(Include = "Email,PasswordHash")] User user)
         {
             // Them Validation
-            var usr = db.Users.Where(u => u.Name == user.Name && u.PasswordHash == user.PasswordHash).FirstOrDefault();
+            var usr = db.Users.Where(u => u.Email == user.Email && u.PasswordHash == user.PasswordHash).FirstOrDefault();
             if (usr != null)
             {
                 if (usr.RoleID == 1)
                 {
                     Session["CurrentUserID"] = usr.UserID;
-                    Session["CurrentUserName"] = usr.Name;
+                    Session["CurrentUserEmail"] = usr.Email;
                     return RedirectToAction("Index", "Home", new { area = "Admin" });
                 }
                 else
                 {
                     Session["CurrentUserID"] = usr.UserID.ToString();
-                    Session["CurrentUserName"] = usr.Name.ToString();
+                    Session["CurrentUserEmail"] = usr.Email.ToString();
                     return RedirectToAction("Index", "Home");
                 }
             }

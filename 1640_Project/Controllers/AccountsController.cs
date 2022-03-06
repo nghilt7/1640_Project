@@ -36,7 +36,7 @@ namespace _1640_Project.Controllers
                 Session["CurrentUserEmail"] = user.Email;
                 Session["CurrentUserPassword"] = user.PasswordHash;
                 Session["CurrentUserRoleID"] = user.RoleID;
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "DepartmentName", user.DepartmentID);
@@ -51,30 +51,30 @@ namespace _1640_Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login([Bind(Include = "Name,PasswordHash")] User user)
+        public ActionResult Login([Bind(Include = "Email,PasswordHash")] User user)
         {
             // Them Validation
-                var usr = db.Users.Where(u => u.Name == user.Name && u.PasswordHash == user.PasswordHash).FirstOrDefault();
+                var usr = db.Users.Where(u => u.Email == user.Email && u.PasswordHash == user.PasswordHash).FirstOrDefault();
                 if (usr != null)
                 {
                     if (usr.RoleID == 1)
                     {
                         Session["CurrentUserID"] = usr.UserID;
-                        Session["CurrentUserName"] = usr.Name;
+                        Session["CurrentUserEmail"] = usr.Email;
                         Session["CurrentUserRoleID"] = usr.RoleID;
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }     
                     else
                     {
                         Session["CurrentUserID"] = usr.UserID;
-                        Session["CurrentUserName"] = usr.Name;
+                        Session["CurrentUserEmail"] = usr.Email;
                         Session["CurrentUserRoleID"] = usr.RoleID;
                     return RedirectToAction("Index", "Home");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Name or Password is wrong.");
+                    ModelState.AddModelError("", "Email or Password is wrong.");
 
                 }
                 return View();
