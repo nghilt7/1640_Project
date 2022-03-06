@@ -35,7 +35,7 @@ namespace _1640_Project.Controllers
                 Session["CurrentUserEmail"] = user.Email;
                 Session["CurrentUserPassword"] = user.PasswordHash;
                 Session["CurrentUserRoleID"] = user.RoleID;
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "DepartmentName", user.DepartmentID);

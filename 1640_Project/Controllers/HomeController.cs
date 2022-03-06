@@ -9,10 +9,14 @@ namespace _1640_Project.Controllers
 {
     public class HomeController : Controller
     {
+        IdeasDbContext db = new IdeasDbContext();
         public ActionResult Index()
         {
-            return View();
+            List<Category> categories = db.Categories.ToList();
+            return View(categories);
         }
+
+  
 
         public ActionResult About()
         {

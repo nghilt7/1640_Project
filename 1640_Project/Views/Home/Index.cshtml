@@ -1,1 +1,21 @@
-﻿Hello
+﻿@model List<_1640_Project.Models.Category>
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>University of GW</h2>
+
+@Html.ActionLink("Add New Idea", "Create", "Ideas")
+
+<table class="table">
+    <tr>
+        @foreach (var item in Model)
+        {
+            <td>
+                <a href="/home/view/">@item.CategoryName</a>
+            </td>
+        }
+
+    </tr>
+</table>

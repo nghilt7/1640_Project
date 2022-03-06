@@ -17,7 +17,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         // GET: Accounts
         public ActionResult Index()
         {
-            var users = db.Users.Include(u => u.Department).Include(u => u.Role);
+            var users = db.Users.Where(t => t.RoleID != 1).ToList();
             return View(users.ToList());
         }
 

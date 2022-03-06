@@ -15,10 +15,10 @@ namespace _1640_Project.Controllers
         private IdeasDbContext db = new IdeasDbContext();
 
         // GET: Ideas
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            var ideas = db.Ideas.Include(i => i.Category).Include(i => i.Submission).Include(i => i.User);
-            return View(ideas.ToList());
+            var ideas = db.Ideas.Where(t => t.UserID == id).ToList();
+            return View(ideas);
         }
 
         // GET: Ideas/Details/5
@@ -56,7 +56,7 @@ namespace _1640_Project.Controllers
             {
                 db.Ideas.Add(idea);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", idea.CategoryID);
