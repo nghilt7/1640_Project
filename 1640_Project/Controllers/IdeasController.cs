@@ -56,6 +56,7 @@ namespace _1640_Project.Controllers
             {
                 db.Ideas.Add(idea);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
