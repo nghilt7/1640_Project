@@ -10,6 +10,7 @@ using _1640_Project.Models;
 
 namespace _1640_Project.Areas.Admin.Controllers
 {
+    //Hon
     public class CategoriesController : Controller
     {
         private IdeasDbContext db = new IdeasDbContext();

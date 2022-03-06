@@ -15,6 +15,7 @@ namespace _1640_Project.Controllers
         private IdeasDbContext db = new IdeasDbContext();
 
         // GET: Accounts/Create
+        //Hon
         public ActionResult Register()
         {
             ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "DepartmentName");
@@ -43,6 +44,7 @@ namespace _1640_Project.Controllers
             return View(user);
         }
 
+        //Hon
         public ActionResult Login()
         {
             return View();
@@ -77,8 +79,8 @@ namespace _1640_Project.Controllers
                 }
                 return View();
         }
-            
 
+        //Hon
         public ActionResult Logout()
         {
             Session.Abandon();
