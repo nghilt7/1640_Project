@@ -70,7 +70,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login([Bind(Include = "Email,PasswordHash")] User user)
+        public ActionResult Login([Bind(Include = "Name,PasswordHash")] User user)
         {
             // Them Validation
             var usr = db.Users.Where(u => u.Name == user.Name && u.PasswordHash == user.PasswordHash).FirstOrDefault();
@@ -85,7 +85,7 @@ namespace _1640_Project.Areas.Admin.Controllers
                 else
                 {
                     Session["CurrentUserID"] = usr.UserID.ToString();
-                    Session["CurrentUserEmail"] = usr.Email.ToString();
+                    Session["CurrentUserName"] = usr.Name.ToString();
                     return RedirectToAction("Index", "Home");
                 }
             }

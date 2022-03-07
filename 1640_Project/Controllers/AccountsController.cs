@@ -67,14 +67,14 @@ namespace _1640_Project.Controllers
                     else
                     {
                         Session["CurrentUserID"] = usr.UserID;
-                        Session["CurrentUserEmail"] = usr.Email;
+                        Session["CurrentUserName"] = usr.Name;
                         Session["CurrentUserRoleID"] = usr.RoleID;
                     return RedirectToAction("Index", "Home");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Email or Password is wrong.");
+                    ModelState.AddModelError("", "Name or Password is wrong.");
 
                 }
                 return View();
