@@ -57,19 +57,23 @@ namespace _1640_Project.Controllers
                 var usr = db.Users.Where(u => u.Name == user.Name && u.PasswordHash == user.PasswordHash).FirstOrDefault();
                 if (usr != null)
                 {
+                    Session["CurrentUserID"] = usr.UserID;
+                    Session["CurrentUserName"] = usr.Name;
+                    Session["CurrentUserRoleID"] = usr.RoleID;
                     if (usr.RoleID == 1)
                     {
-                        Session["CurrentUserID"] = usr.UserID;
-                        Session["CurrentUserName"] = usr.Name;
-                        Session["CurrentUserRoleID"] = usr.RoleID;
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
-                    }     
-                    else
+                    }
+                    else if (usr.RoleID == 2)
                     {
-                        Session["CurrentUserID"] = usr.UserID;
-                        Session["CurrentUserName"] = usr.Name;
-                        Session["CurrentUserRoleID"] = usr.RoleID;
-                    return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else if (usr.RoleID == 3)
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "QAM" });
+                    } else
+                    {
+                    return RedirectToAction("Index", "Home", new { area = "QAC" });
                     }
                 }
                 else
@@ -117,6 +121,5 @@ namespace _1640_Project.Controllers
             ViewBag.RoleID = new SelectList(db.Roles, "RoleID", "RoleName", user.RoleID);
             return View(user);
         }
-
     }
 }

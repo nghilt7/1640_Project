@@ -15,8 +15,19 @@ namespace _1640_Project.Controllers
             List<Category> categories = db.Categories.ToList();
             return View(categories);
         }
+        
+        public ActionResult View(int id)
+        {
+            List<Idea> ideas = db.Ideas.Where(t => t.SubmissionID == id).ToList();   
+            return View(ideas);
+        }
 
-  
+        public ActionResult Submit(int id)
+        {
+            List<Submission> submissions = db.Submissions.Where(t => t.CategoryID == id).ToList();
+            ViewBag.id = id;
+            return View(submissions);
+        }
 
         public ActionResult About()
         {

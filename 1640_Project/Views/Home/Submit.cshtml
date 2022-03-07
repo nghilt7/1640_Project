@@ -1,0 +1,26 @@
+﻿@model List<_1640_Project.Models.Submission>
+
+@{
+    ViewBag.Title = "Submit";
+}
+
+<h2>Submit</h2>
+
+<table class="table">
+    <tr>
+        @foreach (var item in Model)
+        {
+        <td>
+            <a href="/home/view/@item.SubmissionID">@item.SubmissionName</a>
+        </td>
+        <td>
+            <a href="/ideas/create?submit=@item.SubmissionID&cate=@item.CategoryID">Add Idea</a>
+        </td>
+        }
+        </tr>
+
+</table>
+
+    
+
+

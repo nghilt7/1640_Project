@@ -1,0 +1,51 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Ideas</title>
+    @Styles.Render("~/Styles/bootstrap")
+    @Styles.Render("~/Styles/site")
+    @Scripts.Render("~/Scripts/bootstrap")
+</head>
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-sm text-light navbar-light">
+            <a class="navbar-brand" href="#">Ideas</a>
+
+
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavBar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="collapsibleNavBar">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a href="/qac/home/index" class="nav-link">Home</a>
+                    </li>
+
+                    @if (Session["CurrentUserName"] != null)
+                    {
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <img src="~/Images/user.png" width="20px" alt="Alternate Text" />
+                                @Session["CurrentUserName"]
+                            </a>
+                            <div class="dropdown-menu bg-info">
+                                <a href="/accounts/logout" class="dropdown-item">Logout</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+        </nav>
+
+        @RenderBody()
+
+    </div>
+
+</body>
+</html>

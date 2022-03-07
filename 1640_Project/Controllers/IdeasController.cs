@@ -14,7 +14,7 @@ namespace _1640_Project.Controllers
     {
         private IdeasDbContext db = new IdeasDbContext();
 
-        // GET: Ideas
+        // Get MY IDEAS
         public ActionResult Index(int id)
         {
             var ideas = db.Ideas.Where(t => t.UserID == id).ToList();
@@ -37,17 +37,17 @@ namespace _1640_Project.Controllers
         }
 
         // GET: Ideas/Create
-        public ActionResult Create()
+        public ActionResult Create(int submit, int cate)
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.SubmissionID = new SelectList(db.Submissions, "SubmissionID", "SubmissionName");
             ViewBag.UserID = new SelectList(db.Users, "UserID", "Name");
+            ViewBag.submit = submit;
+            ViewBag.cate = cate;
             return View();
         }
 
-        // POST: Ideas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea)
@@ -125,7 +125,7 @@ namespace _1640_Project.Controllers
             Idea idea = db.Ideas.Find(id);
             db.Ideas.Remove(idea);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

@@ -16,6 +16,7 @@ namespace _1640_Project.Models
         public DateTime CommentDate { get; set; }
         public int IdeaID { get; set; }
         public int UserID { get; set; }
+        public int VotesCount { get; set; }
         public virtual List<Vote> Votes { get; set; }
     }
 }

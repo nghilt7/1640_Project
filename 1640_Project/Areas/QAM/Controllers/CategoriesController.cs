@@ -8,114 +8,109 @@ using System.Web;
 using System.Web.Mvc;
 using _1640_Project.Models;
 
-namespace _1640_Project.Areas.Admin.Controllers
+namespace _1640_Project.Areas.QAM.Controllers
 {
-    public class SubmissionsController : Controller
+    public class CategoriesController : Controller
     {
         private IdeasDbContext db = new IdeasDbContext();
 
-        // GET: Admin/Submissions
+        // GET: QAM/Categories
         public ActionResult Index()
         {
-            var submissions = db.Submissions.Include(s => s.Category);
-            return View(submissions.ToList());
+            return View(db.Categories.ToList());
         }
 
-        // GET: Admin/Submissions/Details/5
+        // GET: QAM/Categories/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Submission submission = db.Submissions.Find(id);
-            if (submission == null)
+            Category category = db.Categories.Find(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(submission);
+            return View(category);
         }
 
-        // GET: Admin/Submissions/Create
+        // GET: QAM/Categories/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             return View();
         }
 
-        // POST: Admin/Submissions/Create
+        // POST: QAM/Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SubmissionID,SubmissionName,SubmissionDescription,CategoryID,CloseDate,FinalDate")] Submission submission)
+        public ActionResult Create([Bind(Include = "CategoryID,CategoryName,CategoryDescription")] Category category)
         {
             if (ModelState.IsValid)
             {
-                db.Submissions.Add(submission);
+                db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", submission.CategoryID);
-            return View(submission);
+            return View(category);
         }
 
-        // GET: Admin/Submissions/Edit/5
+        // GET: QAM/Categories/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Submission submission = db.Submissions.Find(id);
-            if (submission == null)
+            Category category = db.Categories.Find(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", submission.CategoryID);
-            return View(submission);
+            return View(category);
         }
 
-        // POST: Admin/Submissions/Edit/5
+        // POST: QAM/Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SubmissionID,SubmissionName,SubmissionDescription,CategoryID,CloseDate,FinalDate")] Submission submission)
+        public ActionResult Edit([Bind(Include = "CategoryID,CategoryName,CategoryDescription")] Category category)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(submission).State = EntityState.Modified;
+                db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", submission.CategoryID);
-            return View(submission);
+            return View(category);
         }
 
-        // GET: Admin/Submissions/Delete/5
+        // GET: QAM/Categories/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Submission submission = db.Submissions.Find(id);
-            if (submission == null)
+            Category category = db.Categories.Find(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(submission);
+            return View(category);
         }
 
-        // POST: Admin/Submissions/Delete/5
+        // POST: QAM/Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Submission submission = db.Submissions.Find(id);
-            db.Submissions.Remove(submission);
+            Category category = db.Categories.Find(id);
+            db.Categories.Remove(category);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

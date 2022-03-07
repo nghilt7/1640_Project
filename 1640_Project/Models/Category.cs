@@ -13,5 +13,6 @@ namespace _1640_Project.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
+        public string CategoryDescription { get; set; }
     }
 }

@@ -52,58 +52,12 @@ namespace _1640_Project.Areas.Admin.Controllers
             {
                 db.Users.Add(user);
                 db.SaveChanges();
-                Session["CurrentUserID"] = user.UserID;
-                Session["CurrentUserName"] = user.Name;
-                Session["CurrentUserEmail"] = user.Email;
-                Session["CurrentUserPassword"] = user.PasswordHash;
                 return RedirectToAction("Index");
             }
 
             ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "DepartmentName", user.DepartmentID);
             ViewBag.RoleID = new SelectList(db.Roles, "RoleID", "RoleName", user.RoleID);
             return View(user);
-        }
-
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Login([Bind(Include = "Name,PasswordHash")] User user)
-        {
-            // Them Validation
-            var usr = db.Users.Where(u => u.Name == user.Name && u.PasswordHash == user.PasswordHash).FirstOrDefault();
-            if (usr != null)
-            {
-                if (usr.RoleID == 1)
-                {
-                    Session["CurrentUserID"] = usr.UserID;
-                    Session["CurrentUserName"] = usr.Name;
-                    return RedirectToAction("Index", "Home", new { area = "Admin" });
-                }
-                else
-                {
-                    Session["CurrentUserID"] = usr.UserID.ToString();
-                    Session["CurrentUserName"] = usr.Name.ToString();
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", "Name or Password is wrong.");
-
-            }
-            return View();
-        }
-
-
-
-
-        public ActionResult Logout()
-        {
-            Session.Abandon();
-            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult ChangeProfile(int? id)

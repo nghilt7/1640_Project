@@ -134,6 +134,11 @@
     <Compile Include="Areas\Admin\Controllers\IdeasController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubmissionsController.cs" />
+    <Compile Include="Areas\QAC\Controllers\HomeController.cs" />
+    <Compile Include="Areas\QAC\QACAreaRegistration.cs" />
+    <Compile Include="Areas\QAM\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\QAM\Controllers\HomeController.cs" />
+    <Compile Include="Areas\QAM\QAMAreaRegistration.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdeasController.cs" />
@@ -207,11 +212,6 @@
     <Content Include="Areas\Admin\Views\Roles\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Roles\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Roles\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Submissions\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Submissions\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Submissions\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Submissions\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Submissions\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Ideas\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Ideas\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Ideas\Details.cshtml" />
@@ -222,6 +222,24 @@
     <Content Include="Areas\Admin\Views\Accounts\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Accounts\ChangeProfile.cshtml" />
     <Content Include="Areas\Admin\Views\Accounts\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Submissions\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Submissions\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Submissions\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Submissions\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Submissions\Index.cshtml" />
+    <Content Include="Areas\QAM\Views\web.config" />
+    <Content Include="Areas\QAM\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\QAM\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\QAM\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\QAM\Views\Categories\Delete.cshtml" />
+    <Content Include="Areas\QAM\Views\Categories\Details.cshtml" />
+    <Content Include="Areas\QAM\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\QAM\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\QAM\Views\Home\Index.cshtml" />
+    <Content Include="Areas\QAC\Views\web.config" />
+    <Content Include="Areas\QAC\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\QAC\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\QAC\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -339,10 +357,14 @@
     <Content Include="Views\Ideas\Details.cshtml" />
     <Content Include="Views\Ideas\Edit.cshtml" />
     <Content Include="Views\Ideas\Index.cshtml" />
+    <Content Include="Views\Home\View.cshtml" />
+    <Content Include="Views\Home\Submit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\QAC\Data\" />
+    <Folder Include="Areas\QAM\Data\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

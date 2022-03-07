@@ -6,14 +6,13 @@
 
 <h2>University of GW</h2>
 
-@Html.ActionLink("Add New Idea", "Create", "Ideas")
 
 <table class="table">
     <tr>
         @foreach (var item in Model)
         {
             <td>
-                <a href="/home/view/">@item.CategoryName</a>
+                <a href="/home/submit/@item.CategoryID">@item.CategoryName</a>
             </td>
         }
 
