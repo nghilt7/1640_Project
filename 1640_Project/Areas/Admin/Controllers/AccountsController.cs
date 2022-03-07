@@ -73,13 +73,13 @@ namespace _1640_Project.Areas.Admin.Controllers
         public ActionResult Login([Bind(Include = "Email,PasswordHash")] User user)
         {
             // Them Validation
-            var usr = db.Users.Where(u => u.Email == user.Email && u.PasswordHash == user.PasswordHash).FirstOrDefault();
+            var usr = db.Users.Where(u => u.Name == user.Name && u.PasswordHash == user.PasswordHash).FirstOrDefault();
             if (usr != null)
             {
                 if (usr.RoleID == 1)
                 {
                     Session["CurrentUserID"] = usr.UserID;
-                    Session["CurrentUserEmail"] = usr.Email;
+                    Session["CurrentUserName"] = usr.Name;
                     return RedirectToAction("Index", "Home", new { area = "Admin" });
                 }
                 else

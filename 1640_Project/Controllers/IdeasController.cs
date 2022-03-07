@@ -59,7 +59,6 @@ namespace _1640_Project.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", idea.CategoryID);
             ViewBag.SubmissionID = new SelectList(db.Submissions, "SubmissionID", "SubmissionName", idea.SubmissionID);
             ViewBag.UserID = new SelectList(db.Users, "UserID", "Name", idea.UserID);
