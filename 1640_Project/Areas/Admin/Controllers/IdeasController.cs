@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using _1640_Project.Filters;
 using _1640_Project.Models;
 
 namespace _1640_Project.Areas.Admin.Controllers
@@ -15,6 +16,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         private IdeasDbContext db = new IdeasDbContext();
 
         // GET: Admin/Ideas
+        [AdminAuthorization]
         public ActionResult Index()
         {
             var ideas = db.Ideas.Include(i => i.Category).Include(i => i.Submission).Include(i => i.User);
@@ -22,6 +24,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Ideas/Details/5
+        [AdminAuthorization]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +40,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Ideas/Create
+        [AdminAuthorization]
         public ActionResult Create()
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
@@ -45,9 +49,7 @@ namespace _1640_Project.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Ideas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [AdminAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea)
@@ -66,6 +68,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Ideas/Edit/5
+        [AdminAuthorization]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,9 +86,7 @@ namespace _1640_Project.Areas.Admin.Controllers
             return View(idea);
         }
 
-        // POST: Admin/Ideas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [AdminAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea)
@@ -103,6 +104,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Ideas/Delete/5
+        [AdminAuthorization]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -118,6 +120,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // POST: Admin/Ideas/Delete/5
+        [AdminAuthorization]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

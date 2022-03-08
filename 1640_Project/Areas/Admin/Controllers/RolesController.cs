@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using _1640_Project.Filters;
 using _1640_Project.Models;
 
 namespace _1640_Project.Areas.Admin.Controllers
@@ -15,12 +16,14 @@ namespace _1640_Project.Areas.Admin.Controllers
         private IdeasDbContext db = new IdeasDbContext();
 
         // GET: Admin/Roles
+        [AdminAuthorization]
         public ActionResult Index()
         {
             return View(db.Roles.ToList());
         }
 
         // GET: Admin/Roles/Details/5
+        [AdminAuthorization]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,14 +39,13 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Roles/Create
+        [AdminAuthorization]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Roles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [AdminAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "RoleID,RoleName")] Role role)
@@ -59,6 +61,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Roles/Edit/5
+        [AdminAuthorization]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -73,9 +76,7 @@ namespace _1640_Project.Areas.Admin.Controllers
             return View(role);
         }
 
-        // POST: Admin/Roles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [AdminAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "RoleID,RoleName")] Role role)
@@ -90,6 +91,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Roles/Delete/5
+        [AdminAuthorization]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -105,6 +107,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // POST: Admin/Roles/Delete/5
+        [AdminAuthorization]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using _1640_Project.Filters;
 using _1640_Project.Models;
 
 namespace _1640_Project.Controllers
@@ -36,7 +37,7 @@ namespace _1640_Project.Controllers
             return View(idea);
         }
 
-        // GET: Ideas/Create
+        [UserAuthorization]
         public ActionResult Create(int submit, int cate)
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
@@ -50,6 +51,7 @@ namespace _1640_Project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [UserAuthorization]
         public ActionResult Create([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea)
         {
             if (ModelState.IsValid)
@@ -65,7 +67,7 @@ namespace _1640_Project.Controllers
             return View(idea);
         }
 
-        // GET: Ideas/Edit/5
+        [UserAuthorization]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,9 +85,7 @@ namespace _1640_Project.Controllers
             return View(idea);
         }
 
-        // POST: Ideas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [UserAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea)
@@ -102,7 +102,7 @@ namespace _1640_Project.Controllers
             return View(idea);
         }
 
-        // GET: Ideas/Delete/5
+        [UserAuthorization]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -117,7 +117,7 @@ namespace _1640_Project.Controllers
             return View(idea);
         }
 
-        // POST: Ideas/Delete/5
+        [UserAuthorization]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

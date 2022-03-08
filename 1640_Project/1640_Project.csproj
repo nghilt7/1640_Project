@@ -142,6 +142,10 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdeasController.cs" />
+    <Compile Include="Filters\AdminAuthorization.cs" />
+    <Compile Include="Filters\QacAuthorization.cs" />
+    <Compile Include="Filters\QamAuthorization.cs" />
+    <Compile Include="Filters\UserAuthorization.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -240,6 +244,9 @@
     <Content Include="Areas\QAC\Views\_ViewStart.cshtml" />
     <Content Include="Areas\QAC\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\QAC\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Permission.cshtml" />
+    <Content Include="Areas\QAM\Views\Home\Permission.cshtml" />
+    <Content Include="Areas\QAC\Views\Home\Permission.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

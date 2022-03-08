@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using _1640_Project.Filters;
 using _1640_Project.Models;
 
 namespace _1640_Project.Areas.Admin.Controllers
@@ -15,6 +16,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         private IdeasDbContext db = new IdeasDbContext();
 
         // GET: Admin/Submissions
+        [AdminAuthorization]
         public ActionResult Index()
         {
             var submissions = db.Submissions.Include(s => s.Category);
@@ -22,6 +24,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Submissions/Details/5
+        [AdminAuthorization]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,15 +40,14 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Submissions/Create
+        [AdminAuthorization]
         public ActionResult Create()
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             return View();
         }
 
-        // POST: Admin/Submissions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [AdminAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SubmissionID,SubmissionName,SubmissionDescription,CategoryID,CloseDate,FinalDate")] Submission submission)
@@ -62,6 +64,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Submissions/Edit/5
+        [AdminAuthorization]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,9 +80,7 @@ namespace _1640_Project.Areas.Admin.Controllers
             return View(submission);
         }
 
-        // POST: Admin/Submissions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [AdminAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "SubmissionID,SubmissionName,SubmissionDescription,CategoryID,CloseDate,FinalDate")] Submission submission)
@@ -95,6 +96,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Submissions/Delete/5
+        [AdminAuthorization]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,6 +112,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // POST: Admin/Submissions/Delete/5
+        [AdminAuthorization]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

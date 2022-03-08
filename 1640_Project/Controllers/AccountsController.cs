@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using _1640_Project.Filters;
 using _1640_Project.Models;
 
 namespace _1640_Project.Controllers
@@ -62,6 +63,7 @@ namespace _1640_Project.Controllers
                     Session["CurrentUserRoleID"] = usr.RoleID;
                     if (usr.RoleID == 1)
                     {
+                        Session["IsAdmin"] = true;
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
                     else if (usr.RoleID == 2)
@@ -70,10 +72,12 @@ namespace _1640_Project.Controllers
                     }
                     else if (usr.RoleID == 3)
                     {
+                        Session["IsQAM"] = true;
                         return RedirectToAction("Index", "Home", new { area = "QAM" });
                     } else
                     {
-                    return RedirectToAction("Index", "Home", new { area = "QAC" });
+                        Session["IsQAC"] = true;
+                        return RedirectToAction("Index", "Home", new { area = "QAC" });
                     }
                 }
                 else
@@ -91,6 +95,7 @@ namespace _1640_Project.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [UserAuthorization]
         public ActionResult ChangeProfile(int? id)
         {
             if (id == null)
@@ -109,6 +114,7 @@ namespace _1640_Project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [UserAuthorization]
         public ActionResult ChangeProfile([Bind(Include = "UserID,Name,Email,PasswordHash,PhoneNumber,DepartmentID,RoleID")] User user)
         {
             if (ModelState.IsValid)

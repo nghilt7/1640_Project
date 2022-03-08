@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using _1640_Project.Filters;
 using _1640_Project.Models;
 
 namespace _1640_Project.Areas.Admin.Controllers
@@ -16,12 +17,14 @@ namespace _1640_Project.Areas.Admin.Controllers
         private IdeasDbContext db = new IdeasDbContext();
 
         // GET: Admin/Categories
+        [AdminAuthorization]
         public ActionResult Index()
         {
             return View(db.Categories.ToList());
         }
 
         // GET: Admin/Categories/Details/5
+        [AdminAuthorization]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,16 +40,15 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Categories/Create
+        [AdminAuthorization]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AdminAuthorization]
         public ActionResult Create([Bind(Include = "CategoryID,CategoryName")] Category category)
         {
             if (ModelState.IsValid)
@@ -60,6 +62,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Categories/Edit/5
+        [AdminAuthorization]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,9 +77,7 @@ namespace _1640_Project.Areas.Admin.Controllers
             return View(category);
         }
 
-        // POST: Admin/Categories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [AdminAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CategoryID,CategoryName")] Category category)
@@ -91,6 +92,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Categories/Delete/5
+        [AdminAuthorization]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,6 +108,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         }
 
         // POST: Admin/Categories/Delete/5
+        [AdminAuthorization]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

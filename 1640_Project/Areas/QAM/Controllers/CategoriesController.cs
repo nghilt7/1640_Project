@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using _1640_Project.Filters;
 using _1640_Project.Models;
 
 namespace _1640_Project.Areas.QAM.Controllers
@@ -15,12 +16,14 @@ namespace _1640_Project.Areas.QAM.Controllers
         private IdeasDbContext db = new IdeasDbContext();
 
         // GET: QAM/Categories
+        [QamAuthorization]
         public ActionResult Index()
         {
             return View(db.Categories.ToList());
         }
 
         // GET: QAM/Categories/Details/5
+        [QamAuthorization]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,14 +39,13 @@ namespace _1640_Project.Areas.QAM.Controllers
         }
 
         // GET: QAM/Categories/Create
+        [QamAuthorization]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: QAM/Categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [QamAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CategoryID,CategoryName,CategoryDescription")] Category category)
@@ -59,6 +61,7 @@ namespace _1640_Project.Areas.QAM.Controllers
         }
 
         // GET: QAM/Categories/Edit/5
+        [QamAuthorization]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -73,9 +76,7 @@ namespace _1640_Project.Areas.QAM.Controllers
             return View(category);
         }
 
-        // POST: QAM/Categories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [QamAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CategoryID,CategoryName,CategoryDescription")] Category category)
@@ -90,6 +91,7 @@ namespace _1640_Project.Areas.QAM.Controllers
         }
 
         // GET: QAM/Categories/Delete/5
+        [QamAuthorization]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -105,6 +107,7 @@ namespace _1640_Project.Areas.QAM.Controllers
         }
 
         // POST: QAM/Categories/Delete/5
+        [QamAuthorization]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
