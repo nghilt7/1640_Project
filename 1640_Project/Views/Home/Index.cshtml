@@ -1,20 +1,25 @@
-﻿@model List<_1640_Project.Models.Category>
+﻿@model List<_1640_Project.Models.Submission>
 
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Submit";
 }
 
-<h2>University of GW</h2>
-
+<h2>Submit</h2>
 
 <table class="table">
-    <tr>
+    
         @foreach (var item in Model)
-        {
-            <td>
-                <a href="/home/submit/@item.CategoryID">@item.CategoryName</a>
-            </td>
-        }
-
+        {  
+    <tr>
+        <td>
+            <a href="/home/category/@item.SubmissionID">@item.SubmissionName</a>
+        </td>
     </tr>
+        }
+   
+
 </table>
+
+
+
+

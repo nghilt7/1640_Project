@@ -365,7 +365,7 @@
     <Content Include="Views\Ideas\Edit.cshtml" />
     <Content Include="Views\Ideas\Index.cshtml" />
     <Content Include="Views\Home\View.cshtml" />
-    <Content Include="Views\Home\Submit.cshtml" />
+    <Content Include="Views\Home\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

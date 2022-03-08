@@ -38,13 +38,12 @@ namespace _1640_Project.Controllers
         }
 
         [UserAuthorization]
-        public ActionResult Create(int submit, int cate)
+        public ActionResult Create(int submit)
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.SubmissionID = new SelectList(db.Submissions, "SubmissionID", "SubmissionName");
             ViewBag.UserID = new SelectList(db.Users, "UserID", "Name");
             ViewBag.submit = submit;
-            ViewBag.cate = cate;
             return View();
         }
 

@@ -13,21 +13,21 @@ namespace _1640_Project.Controllers
         IdeasDbContext db = new IdeasDbContext();
         public ActionResult Index()
         {
-            List<Category> categories = db.Categories.ToList();
-            return View(categories);
+            List<Submission> submissions = db.Submissions.ToList();
+            return View(submissions);
         }
         
-        public ActionResult View(int id)
+        public ActionResult View(int cate, int submit)
         {
-            List<Idea> ideas = db.Ideas.Where(t => t.SubmissionID == id).ToList();   
+            List<Idea> ideas = db.Ideas.Where(t => t.CategoryID == cate && t.SubmissionID == submit).ToList();   
             return View(ideas);
         }
 
-        public ActionResult Submit(int id)
+        public ActionResult Category(int id)
         {
-            List<Submission> submissions = db.Submissions.Where(t => t.CategoryID == id).ToList();
-            ViewBag.id = id;
-            return View(submissions);
+            List<Category> categories = db.Categories.ToList();
+            ViewBag.SubmitID = id;
+            return View(categories);
         }
 
         public ActionResult About()
