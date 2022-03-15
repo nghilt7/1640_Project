@@ -269,6 +269,7 @@
     <Content Include="Areas\Admin\Views\Home\Permission.cshtml" />
     <Content Include="Areas\QAM\Views\Home\Permission.cshtml" />
     <Content Include="Areas\QAC\Views\Home\Permission.cshtml" />
+    <Content Include="Areas\QAM\Views\Down\Down.cshtml" />
     <Content Include="Areas\QAM\Views\Down\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
