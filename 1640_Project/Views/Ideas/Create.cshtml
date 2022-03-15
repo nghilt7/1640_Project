@@ -73,10 +73,15 @@
         @Html.ValidationMessageFor(model => model.SubmissionID, "", new { @class = "text-danger" })
     </div>
 
+    <div class="form-group">
+        <input type="checkbox" name="name" id="toggle" checked value="" />
+        <span>Argree with <a href="/home/agree" target="_blank">tern of user</a> </span>
+
+    </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" id="add-button" value="Create" class="btn btn-default" />
         </div>
     </div>
 </div>
@@ -85,3 +90,16 @@
 <div>
     @Html.ActionLink("Back to Home", "Index", "Home")
 </div>
+
+<script>
+    $('#toggle').click(function () {
+        //check if checkbox is checked
+        if ($(this).is(':checked')) {
+
+            $('#add-button').removeAttr('disabled'); //enable input
+
+        } else {
+            $('#add-button').attr('disabled', true); //disable input
+        }
+    });
+</script>
