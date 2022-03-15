@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using _1640_Project.Filters;
@@ -57,6 +58,37 @@ namespace _1640_Project.Controllers
             {
                 db.Ideas.Add(idea);
                 db.SaveChanges();
+
+                idea.CreateDate = DateTime.Now;
+
+                var user = db.Users.Find(idea.UserID);
+                var departmentId = user.DepartmentID;
+                var coordinator = db.Users.FirstOrDefault(c => c.RoleID == 4 && c.DepartmentID == departmentId);
+
+                var senderEmail = new MailAddress("minhtien29042001@gmail.com", "Tiennnm@es.vn");
+                var receiverEmail = new MailAddress(coordinator.Email, "Receiver");
+                var password = "Lovelive9";
+                var sub = idea.Title;
+                var body = idea.Content;
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                };
+                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                    Subject = sub,
+                    Body = body
+                })
+                {
+                    smtp.Send(mess);
+                }
+
+
                 return RedirectToAction("Index", "Home");
             }
 
