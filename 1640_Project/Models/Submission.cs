@@ -14,11 +14,7 @@ namespace _1640_Project.Models
         public int SubmissionID { get; set; }
         public string SubmissionName { get; set; }
         public string SubmissionDescription { get; set; }
-        public int CategoryID { get; set; }
         public DateTime CloseDate { get; set; }
-        public DateTime FinalDate { get; set; }
-        
-        [ForeignKey("CategoryID")]
-        public virtual Category Category { get; set; }
+        public DateTime FinalDate { get; set; }    
     }
 }
