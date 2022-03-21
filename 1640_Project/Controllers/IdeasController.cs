@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -42,7 +43,6 @@ namespace _1640_Project.Controllers
         public ActionResult Create(int submit)
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
-            ViewBag.SubmissionID = new SelectList(db.Submissions, "SubmissionID", "SubmissionName");
             ViewBag.UserID = new SelectList(db.Users, "UserID", "Name");
             ViewBag.submit = submit;
             return View();
@@ -52,42 +52,50 @@ namespace _1640_Project.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [UserAuthorization]
-        public ActionResult Create([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea)
+        public ActionResult Create([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                db.Ideas.Add(idea);
-                db.SaveChanges();
+                if (file.ContentLength > 0)
+                {
+                    string _FileName = Path.GetFileName(file.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
+                    file.SaveAs(_path);
+                    idea.FilePath = _path;
+                    idea.FileName = _FileName;
+                }
 
                 idea.CreateDate = DateTime.Now;
 
-                var user = db.Users.Find(idea.UserID);
-                var departmentId = user.DepartmentID;
-                var coordinator = db.Users.FirstOrDefault(c => c.RoleID == 4 && c.DepartmentID == departmentId);
+                db.Ideas.Add(idea);
+                db.SaveChanges();
 
-                var senderEmail = new MailAddress("minhtien29042001@gmail.com", "Tiennnm@es.vn");
-                var receiverEmail = new MailAddress(coordinator.Email, "Receiver");
-                var password = "Lovelive9";
-                var sub = idea.Title;
-                var body = idea.Content;
-                var smtp = new SmtpClient
-                {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(senderEmail.Address, password)
-                };
-                using (var mess = new MailMessage(senderEmail, receiverEmail)
-                {
-                    Subject = sub,
-                    Body = body
-                })
-                {
-                    smtp.Send(mess);
-                }
+                //var user = db.Users.Find(idea.UserID);
+                //var departmentId = user.DepartmentID;
+                //var coordinator = db.Users.FirstOrDefault(c => c.RoleID == 4 && c.DepartmentID == departmentId);
 
+                //var senderEmail = new MailAddress("minhtien29042001@gmail.com", "Tiennnm@es.vn");
+                //var receiverEmail = new MailAddress(coordinator.Email, "Receiver");
+                //var password = "Lovelive9";
+                //var sub = idea.Title;
+                //var body = idea.Content;
+                //var smtp = new SmtpClient
+                //{
+                //    Host = "smtp.gmail.com",
+                //    Port = 587,
+                //    EnableSsl = true,
+                //    DeliveryMethod = SmtpDeliveryMethod.Network,
+                //    UseDefaultCredentials = false,
+                //    Credentials = new NetworkCredential(senderEmail.Address, password)
+                //};
+                //using (var mess = new MailMessage(senderEmail, receiverEmail)
+                //{
+                //    Subject = sub,
+                //    Body = body
+                //})
+                //{
+                //    smtp.Send(mess);
+                //}
 
                 return RedirectToAction("Index", "Home");
             }
@@ -119,17 +127,35 @@ namespace _1640_Project.Controllers
         [UserAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea)
+        public ActionResult Edit([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(idea).State = EntityState.Modified;
+                if (file.ContentLength > 0)
+                {
+                    string _FileName = Path.GetFileName(file.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
+                    file.SaveAs(_path);
+                    idea.FilePath = _path;
+                    idea.FileName = _FileName;
+                }
+
+                Idea existingIdea = db.Ideas.Where(i => i.IdeaID == idea.IdeaID).FirstOrDefault();
+                existingIdea.Title = idea.Title;
+                existingIdea.Description = idea.Description;
+                existingIdea.Content = idea.Content;
+                existingIdea.CreateDate = idea.CreateDate;
+                existingIdea.ViewCount = idea.ViewCount;
+                existingIdea.UserID = idea.UserID;
+                existingIdea.CategoryID = idea.CategoryID;
+                existingIdea.SubmissionID = idea.SubmissionID;
+                existingIdea.FileName = idea.FileName;
+                existingIdea.FilePath = idea.FilePath;
+
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Index", new { id = Session["CurrentUserID"] });
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", idea.CategoryID);
-            ViewBag.SubmissionID = new SelectList(db.Submissions, "SubmissionID", "SubmissionName", idea.SubmissionID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "Name", idea.UserID);
             return View(idea);
         }
 
@@ -157,6 +183,14 @@ namespace _1640_Project.Controllers
             db.Ideas.Remove(idea);
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
+        }
+
+        [UserAuthorization]
+        public FileResult Download(string FileName, string FilePath)
+        {
+            byte[] fileBytes = System.IO.File.ReadAllBytes(FilePath);
+            string fileName = FileName;
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
         protected override void Dispose(bool disposing)

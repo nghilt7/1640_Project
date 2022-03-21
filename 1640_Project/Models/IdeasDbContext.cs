@@ -16,7 +16,6 @@ namespace _1640_Project.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<File> Files { get; set; }
         public DbSet<Idea> Ideas { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Submission> Submissions { get; set; }

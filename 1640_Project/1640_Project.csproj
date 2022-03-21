@@ -173,7 +173,6 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Department.cs" />
-    <Compile Include="Models\File.cs" />
     <Compile Include="Models\Idea.cs" />
     <Compile Include="Models\IdeasDbContext.cs" />
     <Compile Include="Models\Role.cs" />
@@ -396,6 +395,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\QAC\Data\" />
     <Folder Include="Areas\QAM\Data\" />
+    <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

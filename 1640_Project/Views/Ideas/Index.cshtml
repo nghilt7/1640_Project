@@ -35,41 +35,48 @@
         <th>
             @Html.DisplayNameFor(model => model.ViewCount)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Submission.SubmissionName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ViewCount)
-        </td>
-        <td>
-            @Html.ActionLink("View", "Details", new { id=item.IdeaID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdeaID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdeaID })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Submission.SubmissionName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.User.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Content)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CreateDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ViewCount)
+    </td>
+    <td>
+    <td>
+        <a href="/ideas/download?FileName=@item.FileName&FilePath=@item.FilePath">@item.FileName</a>
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.IdeaID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.IdeaID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.IdeaID })
+    </td>
+</tr>
 }
 
 </table>
