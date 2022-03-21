@@ -13,6 +13,13 @@ namespace _1640_Project
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.MapRoute(
+            //    name: "Comment",
+            //    url: "ideas/Comment/1",
+            //    defaults: new { controller = "Comments", action = "Index" },
+            //    namespaces: new[] { "_1640_Project.Controllers" }
+            //);
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

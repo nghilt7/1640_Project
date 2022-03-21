@@ -41,13 +41,13 @@
     {
 <tr>
     <td>
+        <a href="/ideas/details/@item.IdeaID">@Html.DisplayFor(modelItem => item.Title)</a>
+    </td>
+    <td>
         @Html.DisplayFor(modelItem => item.Category.CategoryName)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.User.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Description)

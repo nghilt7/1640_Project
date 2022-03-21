@@ -36,6 +36,8 @@ namespace _1640_Project.Controllers
             {
                 return HttpNotFound();
             }
+            idea.ViewCount++;
+            db.SaveChanges();
             return View(idea);
         }
 
