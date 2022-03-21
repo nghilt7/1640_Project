@@ -17,6 +17,9 @@ namespace _1640_Project.Models
         public int IdeaID { get; set; }
         public int UserID { get; set; }
         public int VotesCount { get; set; }
+        
+        [ForeignKey("UserID")]
+        public virtual User User { get; set; }
         public virtual List<Vote> Votes { get; set; }
     }
 }
