@@ -36,7 +36,7 @@ namespace _1640_Project.Areas.QAM.Controllers
         public FileResult ExportToExcel(int SubID)
         {
             DataTable dt = new DataTable("Grid");
-            dt.Columns.AddRange(new DataColumn[9] { new DataColumn("IdeaID"),
+            dt.Columns.AddRange(new DataColumn[10] { new DataColumn("IdeaID"),
                                                      new DataColumn("Title"),
                                                      new DataColumn("Description"),
                                                      new DataColumn("Content"),
@@ -44,7 +44,8 @@ namespace _1640_Project.Areas.QAM.Controllers
                                                      new DataColumn("ViewCount"),
                                                      new DataColumn("UserID"),
                                                      new DataColumn("CategoryID"),
-                                                     new DataColumn("SubmissionID")});
+                                                     new DataColumn("SubmissionID"),
+                                                     new DataColumn("FileName")});
 
             var Idea = from IdeasDbContext in db.Ideas.Where(t => t.SubmissionID == SubID) select IdeasDbContext;
 
@@ -52,7 +53,7 @@ namespace _1640_Project.Areas.QAM.Controllers
             {
                 dt.Rows.Add(insurance.IdeaID, insurance.Title, insurance.Description, insurance.Content,
                     insurance.CreateDate, insurance.ViewCount, insurance.UserID, insurance.CategoryID,
-                    insurance.SubmissionID);
+                    insurance.SubmissionID, insurance.FileName);
             }
 
             using (XLWorkbook wb = new XLWorkbook()) //Install ClosedXml from Nuget for XLWorkbook  
