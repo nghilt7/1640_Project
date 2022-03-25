@@ -4,84 +4,197 @@
     ViewBag.Title = "View";
 }
 
-<h2>Views</h2>
 
-<div>
-    <h4>Idea</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </dt>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #DDD;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Submission.SubmissionName)
-        </dt>
+    tr:hover {
+        background-color: red;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Submission.SubmissionName)
-        </dd>
+    body {
+        background-image: url(https://demoda.vn/wp-content/uploads/2022/01/anh-phi-hanh-gia.jpg);
+        background-position: center;
+        background-size: cover;
+        font-family: sans-serif;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </dt>
+    .regform {
+        width: 1000px;
+        background-color: rgba(0,0,0,0.6);
+        margin: auto;
+        color: floralwhite;
+        padding: 15px 0px 15px 0px;
+        text-align: center;
+        border-radius: 15px 15px 0px 0px
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.User.Name)
-        </dd>
+    .main {
+        background-color: rgba(0,0,0,0.5);
+        width: 1000px;
+        margin: auto;
+        color: floralwhite;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+    .Content {
+        width: 800px;
+        height: 80px;
+    }
+</style>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+<body>
+    <div class="regform"><h1>Details Idea</h1></div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+    <div class="main">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
+        <table class="table">
 
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category.CategoryName)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Category.CategoryName)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Submission.SubmissionName)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Submission.SubmissionName)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.Name)
+                </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </dt>
+                <td>
+                    @Html.DisplayFor(model => model.User.Name)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Title)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Description)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Content)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Content)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.CreateDate)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ViewCount)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.ViewCount)
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreateDate)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ViewCount)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ViewCount)
-        </dd>
+@if (Model.CommentCount == 0)
+{
+    <p>No have any comment!!!</p>
+}
 
-    </dl>
+<div class="regform">
+    <form action="/ideas/addcomment" method="post">
+
+        <textarea class="Content">Comment In Here</textarea>
+
+        <input type="hidden" name="CommentDate" value="@DateTime.Now" />
+        <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
+        <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
+        <input type="hidden" name="VotesCount" value="0" />
+        <input type="checkbox" id="hidden-name" name="hidden-name" value="" /> Hidden My Name <br />
+        <br />
+        <input class="btn btn-outline-primary" type="submit" value="Add Comment" />
+    </form>
+
+
+    <table class="table">
+        <tr>
+            <td>Content</td>
+            <td>Date</td>
+            <td>User</td>
+            <td>Edit</td>
+            <td>Like</td>
+            <td>Active</td>
+        </tr>
+        @for (int i = 0; i < Model.CommentCount; i++)
+        {
+            <tr>
+                <td>@Model.Comments[i].Content</td>
+                <td>@Model.Comments[i].CommentDate</td>
+                <td id="display-name">@Model.Comments[i].User.Name</td>
+                <td>
+                    <form id="edit-comment" action="/ideas/editcomment" method="post">
+                        <input type="hidden" name="CommentID" value="@Model.Comments[i].CommentID" />
+                        <textarea name="Content"></textarea>
+                        <input type="hidden" name="CommentDate" value="@DateTime.Now" />
+                        <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
+                        <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
+                        <input type="hidden" name="VotesCount" value="@Model.Comments[i].VotesCount" />
+                        <input class="btn btn-primary" type="submit" value="Edit" />
+                    </form>
+                </td>
+                <td>
+                    @Model.Comments[i].VotesCount
+                </td>
+                <td>
+                    @if (Convert.ToInt32(Session["CurrentUserLike"]) == 0 && Model.Comments[i].UserID != Convert.ToInt32(Session["CurrentUserID"]))
+                    {
+                        <form action="/ideas/like?idea=@Model.IdeaID&cm=@Model.Comments[i].CommentID" method="post">
+                            <button class="btn btn-primary" type="submit">Like</button>
+                        </form>
+                    }
+                    else if (Convert.ToInt32(Session["CurrentUserLike"]) == 1 && Model.Comments[i].UserID != Convert.ToInt32(Session["CurrentUserID"]))
+                    {
+                        <form action="/ideas/dislike?idea=@Model.IdeaID&cm=@Model.Comments[i].CommentID" method="post">
+                            <button class="btn btn-danger" type="submit">Dislike</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
 </div>
 
-<p>
-    <a href="/comments/create/@Model.IdeaID">Comment</a>
-</p>
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdeaID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

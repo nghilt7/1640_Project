@@ -37,6 +37,7 @@ namespace _1640_Project.Controllers
                 Session["CurrentUserEmail"] = user.Email;
                 Session["CurrentUserPassword"] = user.PasswordHash;
                 Session["CurrentUserRoleID"] = user.RoleID;
+                Session["CurrentUserLike"] = 0;
                 return RedirectToAction("Index", "Home");
             }
 
@@ -61,7 +62,8 @@ namespace _1640_Project.Controllers
                     Session["CurrentUserID"] = usr.UserID;
                     Session["CurrentUserName"] = usr.Name;
                     Session["CurrentUserRoleID"] = usr.RoleID;
-                    if (usr.RoleID == 1)
+                    Session["CurrentUserLike"] = 0;
+                if (usr.RoleID == 1)
                     {
                         Session["IsAdmin"] = true;
                         return RedirectToAction("Index", "Home", new { area = "Admin" });

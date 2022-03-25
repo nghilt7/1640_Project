@@ -188,12 +188,75 @@ namespace _1640_Project.Controllers
         }
 
         [UserAuthorization]
+        [HttpPost]
+        public ActionResult AddComment(Comment comment)
+        {
+            Idea idea = db.Ideas.Where(i => i.IdeaID == comment.IdeaID).FirstOrDefault();
+            if (idea != null)
+            {
+                idea.CommentCount++;
+                db.Comments.Add(comment);
+                db.SaveChanges();
+            }
+            
+            return RedirectToAction("Details", "Ideas", new { id = comment.IdeaID });
+        }
+
+        [UserAuthorization]
+        [HttpPost]
+        public ActionResult EditComment(Comment cm)
+        {
+            Comment comment = db.Comments.Where(c => c.CommentID == cm.CommentID).FirstOrDefault();
+            if (comment != null)
+            {
+                comment.Content = cm.Content;
+                comment.CommentDate = cm.CommentDate;
+                comment.UserID = cm.UserID;
+                comment.IdeaID = cm.IdeaID;
+                comment.VotesCount = cm.VotesCount;
+                db.SaveChanges();
+            }
+            
+            return RedirectToAction("Details", "Ideas", new { id = cm.IdeaID });
+        }
+
+        [UserAuthorization]
+        [HttpPost]
+        public ActionResult Like(int idea, int cm)
+        {
+            Comment comment = db.Comments.Where(c => c.CommentID == cm).FirstOrDefault();
+            if (comment != null)
+            {
+                Session["CurrentUserLike"] = 1;
+                comment.VotesCount++;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Details", "Ideas", new { id = idea });
+        }
+
+        [UserAuthorization]
+        [HttpPost]
+        public ActionResult Dislike(int idea, int cm)
+        {
+            Comment comment = db.Comments.Where(c => c.CommentID == cm).FirstOrDefault();
+            if (comment != null)
+            {
+                Session["CurrentUserLike"] = 0;
+                comment.VotesCount--;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Details", "Ideas", new { id = idea });
+        }
+
+        [UserAuthorization]
         public FileResult Download(string FileName, string FilePath)
         {
             byte[] fileBytes = System.IO.File.ReadAllBytes(FilePath);
             string fileName = FileName;
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
+
 
         protected override void Dispose(bool disposing)
         {

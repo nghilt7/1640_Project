@@ -4,67 +4,143 @@
     ViewBag.Title = "View";
 }
 
-<h2>All Ideas</h2>
-
-
-<p>@ViewBag.SubmitID</p>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ViewCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FileName)
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>
-        <a href="/ideas/details/@item.IdeaID">@Html.DisplayFor(modelItem => item.Title)</a>
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Category.CategoryName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.User.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Content)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.CreateDate)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ViewCount)
-    </td>
-    <td>
-        <a href="/ideas/download?FileName=@item.FileName&FilePath=@item.FilePath">@item.FileName</a>
-    </td>
-</tr>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
     }
 
-</table>
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #DDD;
+    }
+
+    tr:hover {
+        background-color: red;
+    }
+
+    body {
+        background-image: url(https://e.khoahoc.tv/photos/image/2019/07/08/phi-hanh-gia.jpg);
+        background-size: cover;
+        font-family: sans-serif;
+        margin-top: 40px;
+    }
+
+    .regform {
+        width: 1500px;
+        background-color: rgba(0,0,0,0.6);
+        margin: auto;
+        color: floralwhite;
+        padding: 20px 0px 20px 0px;
+        text-align: center;
+        border-radius: 20px 20px 0px 0px
+    }
+
+    .main {
+        background-color: rgba(0,0,0,0.5);
+        width: 1500px;
+        margin: auto;
+        color: floralwhite;
+    }
+</style>
+<body>
+    <div class="regform"><h1>All Ideas</h1></div>
+    <p>@ViewBag.SubmitID</p>
+    <div class="main">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category.CategoryName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Content)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreateDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ViewCount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FileName)
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+
+                if (item.ViewCount >= 3)
+                {
+                    <tr style="background-color:lightpink">
+                        <td>
+                            <a href="/ideas/details/@item.IdeaID">@Html.DisplayFor(modelItem => item.Title)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Content)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ViewCount)
+                        </td>
+                        <td>
+                            <a href="/ideas/download?FileName=@item.FileName&FilePath=@item.FilePath">@item.FileName</a>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            <a href="/ideas/details/@item.IdeaID">@Html.DisplayFor(modelItem => item.Title)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Content)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ViewCount)
+                        </td>
+                        <td>
+                            <a href="/ideas/download?FileName=@item.FileName&FilePath=@item.FilePath">@item.FileName</a>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+    </div>
+</body>

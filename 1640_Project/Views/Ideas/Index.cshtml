@@ -3,80 +3,187 @@
 @{
     ViewBag.Title = "Index";
 }
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Submission.SubmissionName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ViewCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FileName)
-        </th>
-        <th></th>
-    </tr>
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #DDD;
+    }
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Category.CategoryName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Submission.SubmissionName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.User.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Content)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.CreateDate)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ViewCount)
-    </td>
-    <td>
-    <td>
-        <a href="/ideas/download?FileName=@item.FileName&FilePath=@item.FilePath">@item.FileName</a>
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.IdeaID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.IdeaID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.IdeaID })
-    </td>
-</tr>
-}
+    tr:hover {
+        background-color: red;
+    }
 
-</table>
+    body {
+        background-image: url(https://thuthuatnhanh.com/wp-content/uploads/2019/12/anh-nen-3d-phi-hanh-gia-vu-tru-cho-may-tinh.jpg);
+        background-size: cover;
+        font-family: sans-serif;
+        margin-top: 40px;
+    }
+
+    .regform {
+        width: 1500px;
+        background-color: rgba(0,0,0,0.6);
+        margin: auto;
+        color: floralwhite;
+        padding: 20px 0px 20px 0px;
+        text-align: center;
+        border-radius: 20px 20px 0px 0px
+    }
+
+    .main {
+        background-color: rgba(0,0,0,0.5);
+        width: 1500px;
+        margin: auto;
+        color: floralwhite;
+    }
+</style>
+<body>
+    <div class="regform"><h1>My Ideas</h1></div>
+    <div class="main">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <span>@Html.DisplayNameFor(model => model.Category.CategoryName)</span>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Submission.SubmissionName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Content)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreateDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ViewCount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FileName)
+                    </th>
+                    <th>You Can</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                if (item.ViewCount >= 5)
+                {
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Submission.SubmissionName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Content)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ViewCount)
+                        </td>
+
+                        <td>
+                            <a href="/ideas/download?FileName=@item.FileName&FilePath=@item.FilePath">@item.FileName</a>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.IdeaID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.IdeaID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.IdeaID })
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Submission.SubmissionName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Content)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ViewCount)
+                        </td>
+
+                        <td>
+                            <a href="/ideas/download?FileName=@item.FileName&FilePath=@item.FilePath">@item.FileName</a>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.IdeaID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.IdeaID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.IdeaID })
+                        </td>
+                    </tr>
+                }
+
+            }
+        </table>
+    </div>
+</body>
+<!-- Slide Show -->
+<!--<section>
+    <img class="mySlides" src="https://demoda.vn/wp-content/uploads/2022/01/anh-phi-hanh-gia.jpg" style="width:100%">
+    <img class="mySlides" src="https://i.pinimg.com/originals/21/4a/86/214a86b204193e3c25c5e5ff7e17837b.webp" style="width:100%">
+    <img class="mySlides" src="https://toigingiuvedep.vn/wp-content/uploads/2022/02/hinh-nen-phi-hanh-gia-4k-3d-chill.jpg" style="width:100%">
+</section>
+<script>
+    // Automatic Slideshow - change image every 3 seconds
+    var myIndex = 0;
+    carousel();
+
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        myIndex++;
+        if (myIndex > x.length) { myIndex = 1 }
+        x[myIndex - 1].style.display = "block";
+        setTimeout(carousel, 3000);
+    }
+</script>-->
