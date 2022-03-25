@@ -17,6 +17,7 @@ namespace _1640_Project.Models
         public string Content { get; set; }
         public DateTime CreateDate { get; set; }
         public int ViewCount { get; set; }
+        public int CommentCount { get; set; }
         public string FileName { get; set; }
         public string FilePath { get; set; }
        
