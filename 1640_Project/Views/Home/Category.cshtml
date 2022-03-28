@@ -3,22 +3,32 @@
 @{
     ViewBag.Title = "Category";
 }
+<link href="~/Styles/Category.css" rel="stylesheet" />
 
-<h2>All Category</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+</head>
 
-<a href="/ideas/create?submit=@ViewBag.SubmitID">Add Ideas</a>
+<body>
+    <div class="banner">
+        <div class="content">
+            <h1><a href="/ideas/create?submit=@ViewBag.SubmitID">Add Ideas</a></h1>
+            <p>Choose your industry</p>
+            <div>
+                @foreach (var item in Model)
+                {
+                <a href="/home/view?cate=@item.CategoryID&submit=@ViewBag.SubmitID"><button type="button"><span></span>@item.CategoryName</button></a>
+                }
+            </div>
+        </div>
+    </div>
 
-<table class="table">
-    <tr>
-        @foreach (var item in Model)
-        {
-            <td>
-                <a href="/home/view?cate=@item.CategoryID&submit=@ViewBag.SubmitID">@item.CategoryName</a>
-            </td>
-        }
-    </tr>
-
-</table>
+</body>
+</html>
 
 
 

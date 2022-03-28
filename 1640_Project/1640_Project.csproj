@@ -193,7 +193,12 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\arrow1.png" />
     <Content Include="Images\avatar.png" />
+    <Content Include="Images\background1.jpg" />
+    <Content Include="Images\bg.jpg" />
+    <Content Include="Images\pic.jpg" />
+    <Content Include="Images\user1.jpg" />
     <Content Include="Images\user.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -352,6 +357,14 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Styles\About.css" />
+    <Content Include="Styles\Category.css" />
+    <Content Include="Styles\ChangeProfile.css" />
+    <Content Include="Styles\Contact.css" />
+    <Content Include="Styles\Details.css" />
+    <Content Include="Styles\HomePage.css" />
+    <Content Include="Styles\Login.css" />
+    <Content Include="Styles\Register.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
