@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<_1640_Project.Models.User>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Add User";
 }
 
-<h2>Index</h2>
+<h2>Add User in System</h2>
 
 <p>
-    @Html.ActionLink("Add New User", "Register")
+    <a href="/admin/accounts/register" class="btn btn-outline-primary">Add New User</a>
 </p>
-<table class="table">
-    <tr>
+<table class="table table-hover table-success">
+    <tr class="thead-dark">
         <th>
             @Html.DisplayNameFor(model => model.Department.DepartmentName)
         </th>
@@ -24,12 +24,9 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </th>
-        <th></th>
+        <th>Action</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -47,14 +44,10 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PasswordHash)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.PhoneNumber)
         </td>
         <td>
             @Html.ActionLink("Edit", "ChangeProfile", new { id=item.UserID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.UserID })
         </td>
     </tr>

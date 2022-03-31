@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace _1640_Project.Models
 {
@@ -20,11 +21,17 @@ namespace _1640_Project.Models
         public string Email { get; set; }
 
         [Required]
+        [DisplayName("Password")]
         public string PasswordHash { get; set; }
 
         [Required]
+        [DisplayName("Phone Number")]
         public string PhoneNumber { get; set; }
+
+        [DisplayName("Department Name")]
         public int DepartmentID { get; set; }
+
+        [DisplayName("Role Name")]
         public int RoleID { get; set; }
 
         [ForeignKey("DepartmentID")]

@@ -1,21 +1,26 @@
 ﻿@model IEnumerable<_1640_Project.Models.Role>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "All Roles";
 }
 
-<h2>Index</h2>
+<h2>All Roles in system</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="/admin/roles/create" class="btn btn-outline-primary">Add New Role</a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RoleName)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-info table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    
 
 @foreach (var item in Model) {
     <tr>
@@ -24,7 +29,6 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RoleID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RoleID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.RoleID })
         </td>
     </tr>
