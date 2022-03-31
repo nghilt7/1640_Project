@@ -5,51 +5,58 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <title>@ViewBag.Title - Ideas</title>
     @Styles.Render("~/Styles/bootstrap")
     @Styles.Render("~/Styles/site")
     @Scripts.Render("~/Scripts/bootstrap")
 </head>
-<body>
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-sm text-light navbar-light">
-            <a class="navbar-brand" href="#">Ideas</a>
 
+
+<body>
+
+    <div class=" container-fluid">
+
+        <nav class=" navbar navbar-expand-sm text-light navbar-light">
+            <a class="w3-button w3-bar-item" href="#">Ideas</a>
 
             <button class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavBar">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+
             <div class="collapse navbar-collapse" id="collapsibleNavBar">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a href="/home/index" class="nav-link">Home</a>
+                        <a href="/home/index" class="w3-button w3-bar-item">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/home/about" class="nav-link">About</a>
+                        <a href="/home/about" class="w3-button w3-bar-item">About</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/home/contact" class="nav-link">Contact</a>
+                        <a href="/home/contact" class="w3-button w3-bar-item">Contact</a>
                     </li>
 
 
                     @if (Session["CurrentUserName"] == null)
                     {
                         <li class="nav-item">
-                            <a href="/accounts/login" class="nav-link">Login</a>
+                            <a href="/accounts/login" class="w3-button w3-bar-item">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/accounts/register" class="nav-link">Register</a>
+                            <a href="/accounts/register" class="w3-button w3-bar-item">Register</a>
                         </li>
                     }
 
                     @if (Session["CurrentUserName"] != null)
                     {
                         <li class="nav-item">
-                            <a href="/ideas/index/@Session["CurrentUserID"]" class="nav-link">My Ideas</a>
+                            <a href="/ideas/index/@Session["CurrentUserID"]" class="w3-button w3-bar-item">My Ideas</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            <a href="#" class="w3-button w3-bar-item dropdown-toggle" data-toggle="dropdown">
                                 <img src="~/Images/user.png" width="20px" alt="Alternate Text" />
                                 @Session["CurrentUserName"]
                             </a>
@@ -61,7 +68,6 @@
                     }
                 </ul>
             </div>
-
             <form class="form-inline" action="/home/search" method="post">
                 <input type="search" class="form-control mr-sm-2" style="width:150px" placeholder="Search" name="str" />
                 <button class="btn btn-success">Search</button>
