@@ -99,7 +99,7 @@ namespace _1640_Project.Controllers
                 //    smtp.Send(mess);
                 //}
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("View", "Home", new {id = idea.SubmissionID });
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", idea.CategoryID);

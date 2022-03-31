@@ -1,21 +1,97 @@
 ﻿@model List<_1640_Project.Models.Submission>
 
 @{
-    ViewBag.Title = "Submit";
+    ViewBag.Title = "HOME";
 }
 
-    <div>
-        <div>
-            <h1>Submit Your Idea</h1>
-            <p>Choose your industry</p>
-            <div>
-                @foreach (var item in Model)
-                {
-                <a href="/home/category/@item.SubmissionID"><button type="button"><span></span>@item.SubmissionName</button></a>
-                }
-            </div>
+
+<!-- About Section -->
+<div class="w3-container" style="padding:128px 16px" id="about">
+    <h3 class="w3-center">UNIVERSITY OF GREENWICH</h3>
+    <p class="w3-center w3-large">Your idea make we better</p>
+    <div class="w3-row-padding w3-center" style="margin-top:64px">
+        <div class="w3-quarter">
+            <i class="fa fa-desktop w3-margin-bottom w3-jumbo w3-center"></i>
+            <p class="w3-large">Responsive</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+        </div>
+        <div class="w3-quarter">
+            <i class="fa fa-heart w3-margin-bottom w3-jumbo"></i>
+            <p class="w3-large">Passion</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+        </div>
+        <div class="w3-quarter">
+            <i class="fa fa-diamond w3-margin-bottom w3-jumbo"></i>
+            <p class="w3-large">Design</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+        </div>
+        <div class="w3-quarter">
+            <i class="fa fa-cog w3-margin-bottom w3-jumbo"></i>
+            <p class="w3-large">Support</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
         </div>
     </div>
+</div>
+
+<!--Team-->
+<div class="w3-container w3-light-grey" style="padding:128px 16px" id="team">
+    <h3 class="w3-center">MAKE IDEA NOW</h3>
+    <p class="w3-center w3-large">We can't wait to see your idea</p>
+    <div class="w3-row-padding w3-grayscale" style="margin-top:64px">
+        @foreach (var item in Model)
+        {
+            <div class="w3-col l3 m6 w3-margin-bottom">
+                <div class="w3-card">
+                    <div class="w3-container">
+                        <h3>@item.SubmissionName</h3>
+                        <p class="w3-opacity"><span style="font-weight:900">Close Date:</span> @item.CloseDate</p>
+                        <p class="w3-opacity"><span style="font-weight:900">Final Date:</span> @item.FinalDate</p>
+                        <p>@item.SubmissionDescription</p>
+                        <p><a href="/home/view/@item.SubmissionID" class="w3-button w3-light-grey w3-block"><i class="fa fa-diamond"></i> LEARN MORE</a></p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Contact Section -->
+<div class="w3-container" style="padding:128px 16px" id="contact">
+    <h3 class="w3-center">CONTACT</h3>
+    <p class="w3-center w3-large">Lets get in touch. Send us a message:</p>
+    <div style="margin-top:48px">
+        <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i> Chicago, US</p>
+        <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> Phone: +00 151515</p>
+        <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> Email: mail@mail.com</p>
+        <br>
+        <form action="/action_page.php" target="_blank">
+            <p><input class="w3-input w3-border" type="text" placeholder="Name" required name="Name"></p>
+            <p><input class="w3-input w3-border" type="text" placeholder="Email" required name="Email"></p>
+            <p><input class="w3-input w3-border" type="text" placeholder="Subject" required name="Subject"></p>
+            <p><input class="w3-input w3-border" type="text" placeholder="Message" required name="Message"></p>
+            <p>
+                <button class="w3-button w3-black" type="submit">
+                    <i class="fa fa-paper-plane"></i> SEND MESSAGE
+                </button>
+            </p>
+        </form>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64">
+    <div class="w3-xlarge w3-section">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+</footer>
+
+
+
 
 
 

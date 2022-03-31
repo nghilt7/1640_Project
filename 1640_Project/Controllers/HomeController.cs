@@ -17,9 +17,10 @@ namespace _1640_Project.Controllers
             return View(submissions);
         }
         
-        public ActionResult View(int cate, int submit)
+        public ActionResult View(int id)
         {
-            List<Idea> ideas = db.Ideas.Where(t => t.CategoryID == cate && t.SubmissionID == submit).ToList();   
+            List<Idea> ideas = db.Ideas.Where(t => t.SubmissionID == id).ToList();
+            ViewBag.SubID = id;
             return View(ideas);
         }
 

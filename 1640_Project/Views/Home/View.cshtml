@@ -4,100 +4,33 @@
     ViewBag.Title = "View";
 }
 
-    <div><h1>All Ideas</h1></div>
-    <p>@ViewBag.SubmitID</p>
-    <div>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Category.CategoryName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.User.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Title)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Content)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CreateDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ViewCount)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FileName)
-                    </th>
-                </tr>
-            </thead>
-            @foreach (var item in Model)
-            {
 
-                if (item.ViewCount >= 3)
-                {
-                    <tr>
-                        <td>
-                            <a href="/ideas/details/@item.IdeaID">@Html.DisplayFor(modelItem => item.Title)</a>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.User.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Content)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreateDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ViewCount)
-                        </td>
-                        <td>
-                            <a href="/ideas/download?FileName=@item.FileName&FilePath=@item.FilePath">@item.FileName</a>
-                        </td>
-                    </tr>
-                }
-                else
-                {
-                    <tr>
-                        <td>
-                            <a href="/ideas/details/@item.IdeaID">@Html.DisplayFor(modelItem => item.Title)</a>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.User.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Content)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreateDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ViewCount)
-                        </td>
-                        <td>
-                            <a href="/ideas/download?FileName=@item.FileName&FilePath=@item.FilePath">@item.FileName</a>
-                        </td>
-                    </tr>
-                }
-            }
-
-        </table>
+<div class="w3-container" style="padding:128px 16px">
+    <div class="w3-row-padding">
+        <div class="w3-col m12">
+            <div class="w3-card w3-round w3-white">
+                <div class="w3-container w3-padding">
+                    <h6 class="w3-opacity">Upload Your Idea Here</h6>
+                    <a href="/ideas/create?submit=@ViewBag.SubID" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Make Idea</a>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <hr />
+    <h3>ALL OTHER IDEAS</h3>
+
+    @foreach (var item in Model)
+    {
+<div class="w3-container w3-card w3-white w3-round w3-margin">
+    <br>
+    <h4><a href="/ideas/details/@item.IdeaID">@item.Title</a></h4><br>
+    <p>Upload in: @item.CreateDate by: @item.User.Name</p>
+    <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
+    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  @item.ViewCount</button>
+    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  @item.Category.CategoryName</button>
+</div>
+    }
+
+</div>
+

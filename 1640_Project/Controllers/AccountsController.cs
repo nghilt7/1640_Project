@@ -53,10 +53,10 @@ namespace _1640_Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login([Bind(Include = "Name,PasswordHash")] User user)
+        public ActionResult Login([Bind(Include = "Email,PasswordHash")] User user)
         {
             // Them Validation
-                var usr = db.Users.Where(u => u.Name == user.Name && u.PasswordHash == user.PasswordHash).FirstOrDefault();
+                var usr = db.Users.Where(u => u.Email == user.Email && u.PasswordHash == user.PasswordHash).FirstOrDefault();
                 if (usr != null)
                 {
                     Session["CurrentUserID"] = usr.UserID;

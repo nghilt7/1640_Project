@@ -4,143 +4,213 @@
     ViewBag.Title = "View";
 }
 
-<h2>Views</h2>
+<header>
+    <style>
+        body {
+            margin-top: 20px;
+        }
 
-<div>
-    <h4>Idea</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </dt>
+        .content-item {
+            padding: 30px 0;
+            background-color: #FFFFFF;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>
+            .content-item.grey {
+                background-color: #F0F0F0;
+                padding: 50px 0;
+                height: 100%;
+            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Submission.SubmissionName)
-        </dt>
+            .content-item h2 {
+                font-weight: 700;
+                font-size: 35px;
+                line-height: 45px;
+                text-transform: uppercase;
+                margin: 20px 0;
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.Submission.SubmissionName)
-        </dd>
+            .content-item h3 {
+                font-weight: 400;
+                font-size: 20px;
+                color: #555555;
+                margin: 10px 0 15px;
+                padding: 0;
+            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </dt>
+        .content-headline {
+            height: 1px;
+            text-align: center;
+            margin: 20px 0 70px;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.User.Name)
-        </dd>
+            .content-headline h2 {
+                background-color: #FFFFFF;
+                display: inline-block;
+                margin: -20px auto 0;
+                padding: 0 20px;
+            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+        .grey .content-headline h2 {
+            background-color: #F0F0F0;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+        .content-headline h3 {
+            font-size: 14px;
+            color: #AAAAAA;
+            display: block;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+        #comments {
+            box-shadow: 0 -1px 6px 1px rgba(0,0,0,0.1);
+            background-color: #FFFFFF;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
+            #comments form {
+                margin-bottom: 30px;
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
+            #comments .btn {
+                margin-top: 7px;
+            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </dt>
+            #comments form fieldset {
+                clear: both;
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.CreateDate)
-        </dd>
+            #comments form textarea {
+                height: 100px;
+            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ViewCount)
-        </dt>
+            #comments .media {
+                border-top: 1px dashed #DDDDDD;
+                padding: 20px 0;
+                margin: 0;
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.ViewCount)
-        </dd>
+                #comments .media > .pull-left {
+                    margin-right: 20px;
+                }
 
-    </dl>
+                #comments .media img {
+                    max-width: 100px;
+                }
+
+                #comments .media h4 {
+                    margin: 0 0 10px;
+                }
+
+                    #comments .media h4 span {
+                        font-size: 14px;
+                        float: right;
+                        color: #999999;
+                    }
+
+                #comments .media p {
+                    margin-bottom: 15px;
+                    text-align: justify;
+                }
+
+            #comments .media-detail {
+                margin: 0;
+            }
+
+                #comments .media-detail li {
+                    color: #AAAAAA;
+                    font-size: 12px;
+                    padding-right: 10px;
+                    font-weight: 600;
+                }
+
+                #comments .media-detail a:hover {
+                    text-decoration: underline;
+                }
+
+                #comments .media-detail li:last-child {
+                    padding-right: 0;
+                }
+
+                #comments .media-detail li i {
+                    color: #666666;
+                    font-size: 15px;
+                    margin-right: 10px;
+                }
+    </style>
+</header>
+
+
+<div class="w3-container" style="padding:128px 16px">
+    <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16">@Model.Title</h2>
+        <div class="w3-container">
+            <h5 class="w3-opacity"><b>@Model.Category.CategoryName / @Model.Submission.SubmissionName</b></h5>
+            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>@Model.CreateDate</h6>
+            <h6 class="w3-text-teal"><i class="fa fa-user fa-fw w3-margin-right"> </i>@Model.User.Name</h6>
+            <hr />
+            <p>@Model.Content</p>
+        </div>
+    </div>
 </div>
 
+<section class="content-item" id="comments">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <form action="/ideas/addcomment" method="post">
+                    <h3 class="pull-left">New Comment</h3>
 
-@if (Model.CommentCount == 0)
-{
-    <p>No have any comment!!!</p>
-}
+                    <fieldset>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                <input type="hidden" name="CommentDate" value="@DateTime.Now" />
+                                <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
+                                <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
+                                <input type="hidden" name="VotesCount" value="0" />
+                                <textarea class="form-control" name="Content" placeholder="Your message" required=""></textarea>
+                                <button type="submit" class="btn btn-normal pull-right">Submit</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
 
+                @if (Model.CommentCount == 0)
+                {
+                    <p>No have any comment</p>
+                }
 
-<form action="/ideas/addcomment" method="post">
+                @for (int i = 0; i < Model.CommentCount; i++)
+                {
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading">@Model.Comments[i].User.Name</h4>
+                            <p>@Model.Comments[i].Content</p>
+                            <ul class="list-unstyled list-inline media-detail pull-left">
+                                <li><i class="fa fa-calendar"></i>@Model.Comments[i].CommentDate</li>
+                                <li><i class="fa fa-thumbs-up"></i>1</li>
+                            </ul>
+                            <ul class="list-unstyled list-inline media-detail pull-right">
+                                <li class=""><a href="">Like</a></li>
+                            </ul>
+                            <ul class="list-unstyled list-inline media-detail pull-right mr-2">
+                                <li class=""><a href="">Edit</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@*<form id="edit-comment" action="/ideas/editcomment" method="post">
+    <input type="hidden" name="CommentID" value="@Model.Comments[i].CommentID" />
     <textarea name="Content"></textarea>
     <input type="hidden" name="CommentDate" value="@DateTime.Now" />
     <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
     <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
-    <input type="hidden" name="VotesCount" value="0" />
-    <input type="checkbox" id="hidden-name" name="hidden-name" value="" /> Hidden My Name <br />
-    <input class="btn btn-outline-primary" type="submit" value="Add Comment" />
-</form>
-
-
-<table class="table">
-    <tr>
-        <td>Content</td>
-        <td>Date</td>
-        <td>User</td>
-        <td>Edit</td>
-        <td>Like</td>
-        <td>Active</td>
-    </tr>
-    @for (int i = 0; i < Model.CommentCount; i++)
-    {
-<tr>
-    <td>@Model.Comments[i].Content</td>
-    <td>@Model.Comments[i].CommentDate</td>
-    <td id="display-name">@Model.Comments[i].User.Name</td>
-    <td>
-        <form id="edit-comment" action="/ideas/editcomment" method="post">
-            <input type="hidden" name="CommentID" value="@Model.Comments[i].CommentID" />
-            <textarea name="Content"></textarea>
-            <input type="hidden" name="CommentDate" value="@DateTime.Now" />
-            <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
-            <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
-            <input type="hidden" name="VotesCount" value="@Model.Comments[i].VotesCount" />
-            <input class="btn btn-primary" type="submit" value="Edit" />
-        </form>
-    </td>
-    <td>
-        @Model.Comments[i].VotesCount
-    </td>
-    <td>
-        @if (Convert.ToInt32(Session["CurrentUserLike"]) == 0 && Model.Comments[i].UserID != Convert.ToInt32(Session["CurrentUserID"]))
-        {
-            <form action="/ideas/like?idea=@Model.IdeaID&cm=@Model.Comments[i].CommentID" method="post">
-                <button class="btn btn-primary" type="submit">Like</button>
-            </form>
-        }
-        else if (Convert.ToInt32(Session["CurrentUserLike"]) == 1 && Model.Comments[i].UserID != Convert.ToInt32(Session["CurrentUserID"]))
-        {
-    <form action="/ideas/dislike?idea=@Model.IdeaID&cm=@Model.Comments[i].CommentID" method="post">
-            <button class="btn btn-danger" type="submit">Dislike</button>
-    </form>
-        }
-    </td>
-</tr>
-    }
-</table>
+    <input type="hidden" name="VotesCount" value="@Model.Comments[i].VotesCount" />
+    <input class="btn btn-primary" type="submit" value="Edit" />
+</form>*@
 
 
 
