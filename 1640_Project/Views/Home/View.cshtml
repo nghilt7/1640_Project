@@ -4,51 +4,9 @@
     ViewBag.Title = "View";
 }
 
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-
-    th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #DDD;
-    }
-
-    tr:hover {
-        background-color: red;
-    }
-
-    body {
-        background-image: url(https://e.khoahoc.tv/photos/image/2019/07/08/phi-hanh-gia.jpg);
-        background-size: cover;
-        font-family: sans-serif;
-        margin-top: 40px;
-    }
-
-    .regform {
-        width: 1500px;
-        background-color: rgba(0,0,0,0.6);
-        margin: auto;
-        color: floralwhite;
-        padding: 20px 0px 20px 0px;
-        text-align: center;
-        border-radius: 20px 20px 0px 0px
-    }
-
-    .main {
-        background-color: rgba(0,0,0,0.5);
-        width: 1500px;
-        margin: auto;
-        color: floralwhite;
-    }
-</style>
-<body>
-    <div class="regform"><h1>All Ideas</h1></div>
+    <div><h1>All Ideas</h1></div>
     <p>@ViewBag.SubmitID</p>
-    <div class="main">
+    <div>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -83,7 +41,7 @@
 
                 if (item.ViewCount >= 3)
                 {
-                    <tr style="background-color:lightpink">
+                    <tr>
                         <td>
                             <a href="/ideas/details/@item.IdeaID">@Html.DisplayFor(modelItem => item.Title)</a>
                         </td>
@@ -143,4 +101,3 @@
 
         </table>
     </div>
-</body>

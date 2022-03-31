@@ -4,9 +4,6 @@
     ViewBag.Title = "ChangeProfile";
 }
 
-<link href="~/Styles/ChangeProfile.css" rel="stylesheet" />
-
-
 
 @using (Html.BeginForm())
 {
@@ -18,7 +15,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.UserID)
 
-        <img src="~/Images/user1.jpg" alt="Alternate Text" class="user" />
+        <img src="~/Images/user1.jpg" alt="Alternate Text" />
 
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })

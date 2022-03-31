@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Login";
 }
-<link href="~/Styles/Login.css" rel="stylesheet" />
 
 @using (Html.BeginForm())
 {
@@ -21,7 +20,7 @@
         </div>
     </div>
 
-    <img src="~/Images/user1.jpg" alt="Alternate Text" class="user" />
+    <img src="~/Images/user1.jpg" alt="Alternate Text" />
 
     <div class="form-group">
         @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "control-label col-md-2" })
