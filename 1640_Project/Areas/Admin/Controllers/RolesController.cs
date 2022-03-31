@@ -22,22 +22,6 @@ namespace _1640_Project.Areas.Admin.Controllers
             return View(db.Roles.ToList());
         }
 
-        // GET: Admin/Roles/Details/5
-        [AdminAuthorization]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Role role = db.Roles.Find(id);
-            if (role == null)
-            {
-                return HttpNotFound();
-            }
-            return View(role);
-        }
-
         // GET: Admin/Roles/Create
         [AdminAuthorization]
         public ActionResult Create()

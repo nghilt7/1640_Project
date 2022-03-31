@@ -11,7 +11,6 @@ using _1640_Project.Models;
 
 namespace _1640_Project.Areas.Admin.Controllers
 {
-    //Hon
     public class CategoriesController : Controller
     {
         private IdeasDbContext db = new IdeasDbContext();
@@ -23,21 +22,6 @@ namespace _1640_Project.Areas.Admin.Controllers
             return View(db.Categories.ToList());
         }
 
-        // GET: Admin/Categories/Details/5
-        [AdminAuthorization]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
 
         // GET: Admin/Categories/Create
         [AdminAuthorization]
@@ -46,10 +30,10 @@ namespace _1640_Project.Areas.Admin.Controllers
             return View();
         }
 
+        [AdminAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AdminAuthorization]
-        public ActionResult Create([Bind(Include = "CategoryID,CategoryName")] Category category)
+        public ActionResult Create([Bind(Include = "CategoryID,CategoryName,CategoryDescription")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +64,7 @@ namespace _1640_Project.Areas.Admin.Controllers
         [AdminAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryID,CategoryName")] Category category)
+        public ActionResult Edit([Bind(Include = "CategoryID,CategoryName,CategoryDescription")] Category category)
         {
             if (ModelState.IsValid)
             {

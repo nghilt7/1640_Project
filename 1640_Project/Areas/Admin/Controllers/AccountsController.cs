@@ -23,21 +23,6 @@ namespace _1640_Project.Areas.Admin.Controllers
             return View(users.ToList());
         }
 
-        // GET: Accounts/Details/5
-        [AdminAuthorization]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
 
         // GET: Accounts/Create
         [AdminAuthorization]

@@ -22,21 +22,6 @@ namespace _1640_Project.Areas.Admin.Controllers
             return View(db.Departments.ToList());
         }
 
-        // GET: Admin/Departments/Details/5
-        [AdminAuthorization]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Department department = db.Departments.Find(id);
-            if (department == null)
-            {
-                return HttpNotFound();
-            }
-            return View(department);
-        }
 
         // GET: Admin/Departments/Create
         [AdminAuthorization]
