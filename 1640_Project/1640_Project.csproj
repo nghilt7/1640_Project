@@ -197,6 +197,7 @@
     <Content Include="Images\background1.jpg" />
     <Content Include="Images\bg.jpg" />
     <Content Include="Images\pic.jpg" />
+    <Content Include="Images\thanks.jpg" />
     <Content Include="Images\user1.jpg" />
     <Content Include="Images\user.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />

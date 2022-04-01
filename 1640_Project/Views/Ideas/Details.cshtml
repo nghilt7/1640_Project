@@ -148,6 +148,10 @@
             <h6 class="w3-text-teal"><i class="fa fa-user fa-fw w3-margin-right"> </i>@Model.User.Name</h6>
             <hr />
             <p>@Model.Content</p>
+            <hr />
+            <p>
+                <a href="/ideas/download?FileName=@Model.FileName&FilePath=@Model.FilePath">@Model.FileName</a>
+            </p>
         </div>
     </div>
 </div>
@@ -186,11 +190,10 @@
                             <p>@Model.Comments[i].Content</p>
                             <ul class="list-unstyled list-inline media-detail pull-left">
                                 <li><i class="fa fa-calendar"></i>@Model.Comments[i].CommentDate</li>
-                                <li><i class="fa fa-thumbs-up"></i>1</li>
                             </ul>
-                            <ul class="list-unstyled list-inline media-detail pull-right">
+                            @*<ul class="list-unstyled list-inline media-detail pull-right">
                                 <li class=""><a href="">Like</a></li>
-                            </ul>
+                            </ul>*@
                             <ul class="list-unstyled list-inline media-detail pull-right mr-2">
                                 <li class=""><a href="">Edit</a></li>
                             </ul>

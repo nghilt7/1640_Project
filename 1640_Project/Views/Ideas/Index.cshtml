@@ -4,80 +4,96 @@
     ViewBag.Title = "Index";
 }
 
-    <div><h1>My Ideas</h1></div>
-    <div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        <span>@Html.DisplayNameFor(model => model.Category.CategoryName)</span>
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Submission.SubmissionName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.User.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Title)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Content)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CreateDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ViewCount)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FileName)
-                    </th>
-                    <th>You Can</th>
-                </tr>
-            </thead>
-            @foreach (var item in Model)
-            {
- 
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Submission.SubmissionName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.User.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Content)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreateDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ViewCount)
-                        </td>
+<header>
+    <style>
+        body {
+            background-color: #f7f6f6
+        }
 
-                        <td>
-                            <a href="/ideas/download?FileName=@item.FileName&FilePath=@item.FilePath">@item.FileName</a>
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.IdeaID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.IdeaID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.IdeaID })
-                        </td>
-                    </tr>
+        .title {
+            font-weight: bold;
+            font-style: italic;
+            padding-bottom: 20px;
+            color: green;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 5px 6px 6px 2px #e9ecef;
+            border-radius: 4px
+        }
+
+        .dots {
+            height: 4px;
+            width: 4px;
+            margin-bottom: 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block
+        }
+
+        .badge {
+            padding: 7px;
+            padding-right: 9px;
+            padding-left: 16px;
+            box-shadow: 5px 6px 6px 2px #e9ecef
+        }
+
+        .user-img {
+            margin-top: 4px
+        }
+
+        .check-icon {
+            font-size: 17px;
+            color: #c3bfbf;
+            top: 1px;
+            position: relative;
+            margin-left: 3px
+        }
+
+        .form-check-input {
+            margin-top: 6px;
+            margin-left: -24px !important;
+            cursor: pointer
+        }
+
+            .form-check-input:focus {
+                box-shadow: none
+            }
+
+        .icons i {
+            margin-left: 8px
+        }
+
+        .reply {
+            margin-left: 12px
+        }
+
+            .reply small {
+                color: #b7b4b4
+            }
+
+                .reply small:hover {
+                    color: green;
+                    cursor: pointer
                 }
-        </table>
-    </div>
+    </style>
+</header>
+
+<div class="w3-container" style="padding:128px 16px">
+    <h1 class="title">My Ideas</h1>
+    @foreach (var item in Model)
+    {
+        <div class="card p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="user d-flex flex-row align-items-center"><span class="font-weight-bold text-primary"><a href="/ideas/details/@item.IdeaID">@item.Title</a></span></div> <small><i class="fa fa-calendar fa-fw w3-margin-right"></i> @item.CreateDate</small>
+            </div>
+            <div class="action d-flex justify-content-between mt-2 align-items-center">
+                <div class="reply px-4"> <small><a href="/ideas/edit/@item.IdeaID">Edit</a></small> <span class="dots"></span> <small><a href="/ideas/delete/@item.IdeaID">Delete</a></small> </div>
+                <div class="icons align-items-center"> <i class="fa fa-eye" aria-hidden="true"></i> @item.ViewCount </div>
+            </div>
+        </div>
+    }
+</div>
+
 
