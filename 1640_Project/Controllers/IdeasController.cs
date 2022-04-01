@@ -184,7 +184,7 @@ namespace _1640_Project.Controllers
             Idea idea = db.Ideas.Find(id);
             db.Ideas.Remove(idea);
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Ideas", new {id = Session["CurrentUserID"] });
         }
 
         [UserAuthorization]
