@@ -14,6 +14,7 @@
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                     <form action="/accounts/login" method="post">
                         @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <input type="email" name="Email" class="form-control form-control-lg" />
@@ -32,8 +33,8 @@
                             <p>Not a member? <a href="/accounts/register">Register</a></p>
                         </div>
 
-                            <!-- Submit button -->
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
 
                     </form>
                 </div>

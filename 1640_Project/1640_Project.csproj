@@ -242,7 +242,6 @@
     <Content Include="Areas\Admin\Views\Ideas\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Accounts\Register.cshtml" />
     <Content Include="Areas\Admin\Views\Accounts\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Accounts\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Accounts\ChangeProfile.cshtml" />
     <Content Include="Areas\Admin\Views\Accounts\Index.cshtml" />
     <Content Include="Areas\QAM\Views\web.config" />
@@ -250,7 +249,6 @@
     <Content Include="Areas\QAM\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\QAM\Views\Categories\Create.cshtml" />
     <Content Include="Areas\QAM\Views\Categories\Delete.cshtml" />
-    <Content Include="Areas\QAM\Views\Categories\Details.cshtml" />
     <Content Include="Areas\QAM\Views\Categories\Edit.cshtml" />
     <Content Include="Areas\QAM\Views\Categories\Index.cshtml" />
     <Content Include="Areas\QAM\Views\Home\Index.cshtml" />

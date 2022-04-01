@@ -4,32 +4,36 @@
     ViewBag.Title = "All Department";
 }
 
-<h2>All Department in system</h2>
+<div class="w3-container" style="padding:50px 16px">
 
-<p>
-    <a href="/admin/departments/create" class="btn btn-outline-primary">Add New Department</a>
-</p>
-<table class="table table-hover table-secondary">
-    <thead class="thead-dark">
-        <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentName)
-        </th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    
+    <h2>All Department in system</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DepartmentID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DepartmentID })
-        </td>
-    </tr>
-}
+    <p>
+        <a href="/admin/departments/create" class="btn btn-outline-primary">Add New Department</a>
+    </p>
+    <table class="table table-hover table-secondary">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepartmentName)
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
 
-</table>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

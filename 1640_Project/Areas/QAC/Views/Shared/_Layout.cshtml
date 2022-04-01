@@ -5,47 +5,76 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>@ViewBag.Title - Ideas</title>
     @Styles.Render("~/Styles/bootstrap")
-    @Styles.Render("~/Styles/site")
     @Scripts.Render("~/Scripts/bootstrap")
+    @Styles.Render("~/Styles/site")
 </head>
+
+
 <body>
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-sm text-light navbar-light">
-            <a class="navbar-brand" href="#">Ideas</a>
 
-
-            <button class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavBar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="collapsibleNavBar">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a href="/qac/home/index" class="nav-link">Home</a>
-                    </li>
-
-                    @if (Session["CurrentUserName"] != null)
-                    {
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                <img src="~/Images/user.png" width="20px" alt="Alternate Text" />
-                                @Session["CurrentUserName"]
-                            </a>
-                            <div class="dropdown-menu bg-info">
-                                <a href="/accounts/logout" class="dropdown-item">Logout</a>
-                            </div>
-                        </li>
-                    }
-                </ul>
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+            <a href="/home" class="w3-bar-item w3-button w3-wide">HOME</a>
+            <!-- Right-sided navbar links -->
+            <div class="w3-right w3-hide-small">
+                @if (Session["CurrentUserName"] != null)
+                {
+                    <a href="#" class="w3-bar-item w3-button">Welcome @Session["CurrentUserName"]</a>
+                    <a href="/ideas/index/@Session["CurrentUserID"]" class="w3-bar-item w3-button">MY IDEAS</a>
+                    <a href="/accounts/changeprofile/@Session["CurrentUserID"]" class="w3-bar-item w3-button">CHANGE PROFILE</a>
+                    <a href="/accounts/logout" class="w3-bar-item w3-button">LOGOUT</a>
+                }
             </div>
+            <!-- Hide right-floated links on small screens and replace them with a menu icon -->
 
-        </nav>
-
-        @RenderBody()
-
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
     </div>
 
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+        @if (Session["CurrentUserName"] == null)
+        {
+            <a href="/accounts/login" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+            <a href="/accounts/register" onclick="w3_close()" class="w3-bar-item w3-button">REGISTER</a>
+        }
+        @if (Session["CurrentUserName"] != null)
+        {
+            <a href="/ideas/index/@Session["CurrentUserID"]" onclick="w3_close()" class="w3-bar-item w3-button">MY IDEAS</a>
+            <a href="/accounts/logout" onclick="w3_close()" class="w3-bar-item w3-button">LOGOUT</a>
+            <a href="/accounts/changeprofile/@Session["CurrentUserID"]" onclick="w3_close()" class="w3-bar-item w3-button">CHANGE PROFILE</a>
+        }
+    </nav>
+
+    @RenderBody()
+
+
+    <script>
+        // Toggle between showing and hiding the sidebar when clicking the menu icon
+        var mySidebar = document.getElementById("mySidebar");
+
+        function w3_open() {
+            if (mySidebar.style.display === 'block') {
+                mySidebar.style.display = 'none';
+            } else {
+                mySidebar.style.display = 'block';
+            }
+        }
+
+        // Close the sidebar with the close button
+        function w3_close() {
+            mySidebar.style.display = "none";
+        }
+    </script>
 </body>
 </html>

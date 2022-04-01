@@ -3,54 +3,57 @@
     ViewBag.Title = "Down";
 }
 
-<h2>Ideas Details</h2>
+<div class="w3-container" style="padding:50px 16px">
 
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive gtcustomgrid">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th>IdeaID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Content</th>
-                    <th>Date</th>
-                    <th>ViewCount</th>
-                    <th>UserID</th>
-                    <th>CategoryID</th>
-                    <th>SubmissionID</th>
-                    <th>File Name</th>
-                </tr>
-            </thead>
-            @foreach (var item in Model)
-            {
-                <tbody>
+    <h2>Ideas Details</h2>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive gtcustomgrid">
+            <table class="table">
+                <thead class="thead-dark">
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.IdeaID, new { @id = "IdeaID", @class = "form-control" })</td>
-                        <td>@Html.DisplayFor(modelItem => item.Title, new { @id = "Title", @class = "form-control" })</td>
-                        <td>@Html.DisplayFor(modelItem => item.Description, new { @id = "Description", @class = "form-control" })</td>
-                        <td>@Html.DisplayFor(modelItem => item.Content, new { @id = "Content", @class = "form-control" })</td>
-                        <td>@Html.DisplayFor(modelItem => item.CreateDate, new { @id = "CreateDate", @class = "form-control" })</td>
-                        <td>@Html.DisplayFor(modelItem => item.ViewCount, new { @id = "ViewCount", @class = "form-control" })</td>
-                        <td>@Html.DisplayFor(modelItem => item.UserID, new { @id = "UserID", @class = "form-control" })</td>
-                        <td>@Html.DisplayFor(modelItem => item.CategoryID, new { @id = "CategoryID", @class = "form-control" })</td>
-                        <td>@Html.DisplayFor(modelItem => item.SubmissionID, new { @id = "SubmissionID", @class = "form-control" })</td>
-                        <td>@Html.DisplayFor(modelItem => item.FileName, new { @id = "FileName", @class = "form-control" })</td>
+                        <th>IdeaID</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Content</th>
+                        <th>Date</th>
+                        <th>ViewCount</th>
+                        <th>UserID</th>
+                        <th>CategoryID</th>
+                        <th>SubmissionID</th>
+                        <th>File Name</th>
                     </tr>
-                </tbody>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.IdeaID, new { @id = "IdeaID", @class = "form-control" })</td>
+                            <td>@Html.DisplayFor(modelItem => item.Title, new { @id = "Title", @class = "form-control" })</td>
+                            <td>@Html.DisplayFor(modelItem => item.Description, new { @id = "Description", @class = "form-control" })</td>
+                            <td>@Html.DisplayFor(modelItem => item.Content, new { @id = "Content", @class = "form-control" })</td>
+                            <td>@Html.DisplayFor(modelItem => item.CreateDate, new { @id = "CreateDate", @class = "form-control" })</td>
+                            <td>@Html.DisplayFor(modelItem => item.ViewCount, new { @id = "ViewCount", @class = "form-control" })</td>
+                            <td>@Html.DisplayFor(modelItem => item.UserID, new { @id = "UserID", @class = "form-control" })</td>
+                            <td>@Html.DisplayFor(modelItem => item.CategoryID, new { @id = "CategoryID", @class = "form-control" })</td>
+                            <td>@Html.DisplayFor(modelItem => item.SubmissionID, new { @id = "SubmissionID", @class = "form-control" })</td>
+                            <td>@Html.DisplayFor(modelItem => item.FileName, new { @id = "FileName", @class = "form-control" })</td>
+                        </tr>
+                    </tbody>
 
-            }
-        </table>
-    </div>
-</div>
-
-<div>
-    @using (Html.BeginForm("ExportToExcel", "Down", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <div>
-            <input type="number" class="hidden" name="SubID" value="@ViewBag.SubID" />
-            <input type="submit" value="Export" class="btn-primary" />
+                }
+            </table>
         </div>
+    </div>
 
-    }
+    <div>
+        @using (Html.BeginForm("ExportToExcel", "Down", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div>
+                <input type="number" class="hidden" name="SubID" value="@ViewBag.SubID" />
+                <input type="submit" value="Export" class="btn-primary" />
+            </div>
+
+        }
+    </div>
 </div>

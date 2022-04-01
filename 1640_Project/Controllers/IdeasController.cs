@@ -213,7 +213,6 @@ namespace _1640_Project.Controllers
                 comment.CommentDate = cm.CommentDate;
                 comment.UserID = cm.UserID;
                 comment.IdeaID = cm.IdeaID;
-                comment.VotesCount = cm.VotesCount;
                 db.SaveChanges();
             }
             
@@ -222,28 +221,30 @@ namespace _1640_Project.Controllers
 
         [UserAuthorization]
         [HttpPost]
-        public ActionResult Like(int idea, int cm)
+        public ActionResult Like(int idea, Vote vote)
         {
-            Comment comment = db.Comments.Where(c => c.CommentID == cm).FirstOrDefault();
-            if (comment != null)
+            Idea ideas = db.Ideas.Where(i => i.IdeaID == idea).FirstOrDefault();
+            Vote vt = db.Votes.Where(v => v.UserID == vote.UserID || v.IdeaID == vote.IdeaID).FirstOrDefault();
+            if (ideas != null)
             {
-                Session["CurrentUserLike"] = 1;
-                comment.VotesCount++;
+                ideas.VotesCount++;
+                db.Votes.Add(vote);
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Details", "Ideas", new { id = idea });
+            return RedirectToAction("View", "Home", new { id = idea });
         }
 
         [UserAuthorization]
         [HttpPost]
-        public ActionResult Dislike(int idea, int cm)
+        public ActionResult Dislike(int idea, Vote vote)
         {
-            Comment comment = db.Comments.Where(c => c.CommentID == cm).FirstOrDefault();
-            if (comment != null)
+            Idea ideas = db.Ideas.Where(i => i.IdeaID == idea).FirstOrDefault();
+            Vote vt = db.Votes.Where(v => v.UserID == vote.UserID && v.IdeaID == vote.IdeaID).FirstOrDefault();
+            if (vt != null)
             {
-                Session["CurrentUserLike"] = 0;
-                comment.VotesCount--;
+                ideas.VotesCount--;
+                vt.VoteValue = -1;
                 db.SaveChanges();
             }
             return RedirectToAction("Details", "Ideas", new { id = idea });

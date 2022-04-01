@@ -26,8 +26,23 @@
     <br>
     <h4><a href="/ideas/details/@item.IdeaID">@item.Title</a></h4><br>
     <p>Upload in: @item.CreateDate by: @item.User.Name</p>
-    <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  @item.ViewCount</button>
+
+    <form action="/ideas/like?idea=@item.IdeaID" method="post" class="w3-theme-d1 w3-margin-bottom">
+        <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
+        <input type="hidden" name="IdeaID" value="@item.IdeaID" />
+        <input type="hidden" name="VoteValue" value="1" />
+        @if (item.VotesCount >= 1)
+        {
+            <button type="submit" class="w3-button"><i class="fa fa-thumbs-up"></i> DisLike</button>
+        }
+        else
+        {
+            <button type="submit" class="w3-button"><i class="fa fa-thumbs-up"></i> Like</button>
+        }
+    </form>
+    
+
+    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  @item.CommentCount</button>
     <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  @item.Category.CategoryName</button>
 </div>
     }

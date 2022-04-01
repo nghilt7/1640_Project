@@ -28,17 +28,25 @@ namespace _1640_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register([Bind(Include = "UserID,Name,Email,PasswordHash,PhoneNumber,DepartmentID,RoleID")] User user)
         {
+            User usr = db.Users.Where(u => u.Email == user.Email).FirstOrDefault();           
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                Session["CurrentUserID"] = user.UserID;
-                Session["CurrentUserName"] = user.Name;
-                Session["CurrentUserEmail"] = user.Email;
-                Session["CurrentUserPassword"] = user.PasswordHash;
-                Session["CurrentUserRoleID"] = user.RoleID;
-                Session["CurrentUserLike"] = 0;
-                return RedirectToAction("Index", "Home");
+                if (usr != null)
+                {
+                    ModelState.AddModelError("", "Email has already Register");
+                } 
+                else
+                {
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    Session["CurrentUserID"] = user.UserID;
+                    Session["CurrentUserName"] = user.Name;
+                    Session["CurrentUserEmail"] = user.Email;
+                    Session["CurrentUserPassword"] = user.PasswordHash;
+                    Session["CurrentUserRoleID"] = user.RoleID;
+                    Session["CurrentUserLike"] = 0;
+                    return RedirectToAction("Index", "Home");
+                }  
             }
 
             ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "DepartmentName", user.DepartmentID);

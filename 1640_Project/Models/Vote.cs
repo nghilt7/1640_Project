@@ -13,7 +13,7 @@ namespace _1640_Project.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int VoteID { get; set; }
         public int UserID { get; set; }
-        public int CommentID { get; set; }
+        public int IdeaID { get; set; }
         public int VoteValue { get; set; }
     }
 }

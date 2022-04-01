@@ -4,34 +4,38 @@
     ViewBag.Title = "All Roles";
 }
 
-<h2>All Roles in system</h2>
+<div class="w3-container" style="padding:50px 16px">
 
-<p>
-    <a href="/admin/roles/create" class="btn btn-outline-primary">Add New Role</a>
-</p>
-<table class="table table-info table-hover">
-    <thead class="thead-dark">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RoleName)
-            </th>
-            <th>
-                Action
-            </th>
-        </tr>
-    </thead>
-    
+    <h2>All Roles in system</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoleName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RoleID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RoleID })
-        </td>
-    </tr>
-}
+    <p>
+        <a href="/admin/roles/create" class="btn btn-outline-primary">Add New Role</a>
+    </p>
+    <table class="table table-info table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RoleName)
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
 
-</table>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.RoleID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.RoleID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
