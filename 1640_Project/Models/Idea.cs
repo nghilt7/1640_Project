@@ -38,7 +38,6 @@ namespace _1640_Project.Models
 
         [ForeignKey("SubmissionID")]
         public virtual Submission Submission { get; set; }
-
         public virtual List<Comment> Comments { get; set; }
         public virtual List<Vote> Votes { get; set; }
     }

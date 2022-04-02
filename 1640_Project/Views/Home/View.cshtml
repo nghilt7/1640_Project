@@ -4,8 +4,45 @@
     ViewBag.Title = "View";
 }
 
+<header>
+    <style>
+        /* Styles for wrapping the search box */
+
+        .main {
+            width: 50%;
+            margin: 50px auto;
+        }
+
+        /* Bootstrap 4 text input with search icon */
+
+        .has-search .form-control {
+            padding-left: 2.375rem;
+        }
+
+        .has-search .form-control-feedback {
+            position: absolute;
+            z-index: 2;
+            display: block;
+            width: 2.375rem;
+            height: 2.375rem;
+            line-height: 2.375rem;
+            text-align: center;
+            pointer-events: none;
+            color: #aaa;
+        }
+    </style>
+</header>
 
 <div class="w3-container" style="padding:128px 16px">
+
+    <div class="form-group has-search">
+        <form action="/home/view">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input type="hidden" name="Sub" value="@ViewBag.SubID" />
+            <input class="form-control" type="search" name="Search" placeholder="Search" value="@ViewBag.Search" />
+        </form>
+    </div>
+
     <div class="w3-row-padding">
         <div class="w3-col m12">
             <div class="w3-card w3-round w3-white">
@@ -18,34 +55,93 @@
     </div>
 
     <hr />
-    <h3>ALL OTHER IDEAS</h3>
+
+    <h3>All Other Ideas</h3>
+
+    <hr />
 
     @foreach (var item in Model)
     {
-<div class="w3-container w3-card w3-white w3-round w3-margin">
-    <br>
-    <h4><a href="/ideas/details/@item.IdeaID">@item.Title</a></h4><br>
-    <p>Upload in: @item.CreateDate by: @item.User.Name</p>
+        <div class="w3-container w3-card w3-white w3-round w3-margin">
+            <br>
+            <h4><a href="/ideas/details/@item.IdeaID">@item.Title</a></h4><br>
+            <p>Upload in: @item.CreateDate by: @item.User.Name</p>
 
-    <form action="/ideas/like?idea=@item.IdeaID" method="post" class="w3-theme-d1 w3-margin-bottom">
-        <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
-        <input type="hidden" name="IdeaID" value="@item.IdeaID" />
-        <input type="hidden" name="VoteValue" value="1" />
-        @if (item.VotesCount >= 1)
-        {
-            <button type="submit" class="w3-button"><i class="fa fa-thumbs-up"></i> DisLike</button>
-        }
-        else
-        {
-            <button type="submit" class="w3-button"><i class="fa fa-thumbs-up"></i> Like</button>
-        }
-    </form>
-    
+            @if (item.VotesCount == 0)
+            {
+                <form action="/ideas/like?idea=@item.IdeaID&sub=@item.SubmissionID&user=@Session["CurrentUserID"]" method="post" class="w3-theme-d1 w3-margin-bottom">
+                    <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
+                    <input type="hidden" name="IdeaID" value="@item.IdeaID" />
+                    <input type="hidden" name="VoteValue" value="1" />
+                    <button type="submit" class="w3-button"><i class="fa fa-thumbs-up"></i> Like</button>
+                </form>
+            }
+            else
+            {
+                for (int i = 0; i < item.VotesCount; i++)
+                {
+                    if (item.Votes[i].VoteValue < 1)
+                    {
+                        <form action="/ideas/like?idea=@item.IdeaID&sub=@item.SubmissionID&user=@Session["CurrentUserID"]" method="post" class="w3-theme-d1 w3-margin-bottom">
+                            <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
+                            <input type="hidden" name="IdeaID" value="@item.IdeaID" />
+                            <input type="hidden" name="VoteValue" value="1" />
+                            <button type="submit" class="w3-button"><i class="fa fa-thumbs-up"></i> Like</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="/ideas/like?idea=@item.IdeaID&sub=@item.SubmissionID&user=@Session["CurrentUserID"]" method="post" class="w3-theme-d1 w3-margin-bottom">
+                            <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
+                            <input type="hidden" name="IdeaID" value="@item.IdeaID" />
+                            <input type="hidden" name="VoteValue" value="-1" />
+                            <button type="submit" class="w3-button"><i class="fa fa-thumbs-up"></i> DisLike</button>
+                        </form>
+                    }
+                }
+            }
 
-    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  @item.CommentCount</button>
-    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  @item.Category.CategoryName</button>
-</div>
+            <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  @item.CommentCount</button>
+            <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  @item.Category.CategoryName</button>
+        </div>
     }
 
 </div>
+
+@{
+    int PrevPageNo = ViewBag.PageNo - 1;
+    if (PrevPageNo <= 0)
+    {
+        PrevPageNo = 1;
+    }
+
+    int NextPageNo = ViewBag.PageNo + 1;
+    if (NextPageNo > ViewBag.NoOfPages)
+    {
+        NextPageNo = ViewBag.NoOfPages;
+    }
+}
+<ul class="pagination justify-content-center">
+    <li class="page-item">
+        <a class="page-link" href="/home/view?Sub=@ViewBag.SubID&PageNo=@PrevPageNo">Prev</a>
+    </li>
+    @for (int i = 0; i < ViewBag.NoOfPages; i++)
+    {
+        if ((i + 1) == ViewBag.PageNo)
+        {
+            <li class="page-item active">
+                <a class="page-link" href="/home/view?Sub=@ViewBag.SubID&PageNo=@(i + 1)">@( i + 1)</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" href="/home/view?Sub=@ViewBag.SubID&PageNo=@(i + 1)">@( i + 1)</a>
+            </li>
+        }
+    }
+    <li class="page-item">
+        <a class="page-link" href="/home/view?Sub=@ViewBag.SubID&PageNo=@NextPageNo">Next</a>
+    </li>
+</ul>
 

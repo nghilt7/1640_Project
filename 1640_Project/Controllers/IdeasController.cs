@@ -99,7 +99,7 @@ namespace _1640_Project.Controllers
                 //    smtp.Send(mess);
                 //}
 
-                return RedirectToAction("View", "Home", new {id = idea.SubmissionID });
+                return RedirectToAction("View", "Home", new {sub = idea.SubmissionID });
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", idea.CategoryID);
@@ -221,33 +221,37 @@ namespace _1640_Project.Controllers
 
         [UserAuthorization]
         [HttpPost]
-        public ActionResult Like(int idea, Vote vote)
+        public ActionResult Like(int idea, int sub, int user, Vote vote)
         {
             Idea ideas = db.Ideas.Where(i => i.IdeaID == idea).FirstOrDefault();
-            Vote vt = db.Votes.Where(v => v.UserID == vote.UserID || v.IdeaID == vote.IdeaID).FirstOrDefault();
-            if (ideas != null)
+            Vote vt = db.Votes.Where(v => v.UserID == user && v.IdeaID == vote.IdeaID).FirstOrDefault();
+            if (vt != null)
             {
-                ideas.VotesCount++;
-                db.Votes.Add(vote);
-                db.SaveChanges();
+                ideas.VotesCount += vote.VoteValue;
+                vt.VoteValue = vote.VoteValue;
+            } 
+            else
+            {
+                db.Votes.Add(vote); 
             }
+            db.SaveChanges();
 
-            return RedirectToAction("View", "Home", new { id = idea });
+            return RedirectToAction("View", "Home", new { sub = sub });
         }
 
         [UserAuthorization]
         [HttpPost]
-        public ActionResult Dislike(int idea, Vote vote)
+        public ActionResult Dislike(int idea, int sub, int user, Vote vote)
         {
             Idea ideas = db.Ideas.Where(i => i.IdeaID == idea).FirstOrDefault();
-            Vote vt = db.Votes.Where(v => v.UserID == vote.UserID && v.IdeaID == vote.IdeaID).FirstOrDefault();
+            Vote vt = db.Votes.Where(v => v.UserID == user && v.IdeaID == vote.IdeaID).FirstOrDefault();
             if (vt != null)
             {
                 ideas.VotesCount--;
                 vt.VoteValue = -1;
                 db.SaveChanges();
             }
-            return RedirectToAction("Details", "Ideas", new { id = idea });
+            return RedirectToAction("Details", "Ideas", new { sub = sub });
         }
 
         [UserAuthorization]

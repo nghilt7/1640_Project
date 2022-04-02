@@ -17,10 +17,21 @@ namespace _1640_Project.Controllers
             return View(submissions);
         }
         
-        public ActionResult View(int id)
+        public ActionResult View(int Sub, int PageNo = 1, string search = "")
         {
-            List<Idea> ideas = db.Ideas.Where(t => t.SubmissionID == id).ToList();
-            ViewBag.SubID = id;
+            // Search
+            ViewBag.search = search;
+            List<Idea> ideas = db.Ideas.Where(t => t.SubmissionID == Sub && t.Title.Contains(search)).ToList();
+            ViewBag.SubID = Sub;
+
+            //Pagination
+            int NoOfRecordsPerPage = 5;
+            int NoOfPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(ideas.Count) / Convert.ToDouble(NoOfRecordsPerPage)));
+            int NoOfRecordsToSkip = (PageNo - 1) * NoOfRecordsPerPage;
+            ViewBag.PageNo = PageNo;
+            ViewBag.NoOfPages = NoOfPages;
+            ideas = ideas.Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage).ToList();
+
             return View(ideas);
         }
 
