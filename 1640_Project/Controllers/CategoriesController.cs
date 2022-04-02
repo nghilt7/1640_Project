@@ -9,20 +9,20 @@ using System.Web.Mvc;
 using _1640_Project.Filters;
 using _1640_Project.Models;
 
-namespace _1640_Project.Areas.QAM.Controllers
+namespace _1640_Project.Controllers
 {
     public class CategoriesController : Controller
     {
         private IdeasDbContext db = new IdeasDbContext();
 
-        // GET: QAM/Categories
+        // GET: Categories
         [QamAuthorization]
         public ActionResult Index()
         {
             return View(db.Categories.ToList());
         }
 
-        // GET: QAM/Categories/Details/5
+        // GET: Categories/Details/5
         [QamAuthorization]
         public ActionResult Details(int? id)
         {
@@ -38,7 +38,7 @@ namespace _1640_Project.Areas.QAM.Controllers
             return View(category);
         }
 
-        // GET: QAM/Categories/Create
+        // GET: Categories/Create
         [QamAuthorization]
         public ActionResult Create()
         {
@@ -60,7 +60,7 @@ namespace _1640_Project.Areas.QAM.Controllers
             return View(category);
         }
 
-        // GET: QAM/Categories/Edit/5
+        // GET: Categories/Edit/5
         [QamAuthorization]
         public ActionResult Edit(int? id)
         {
@@ -90,7 +90,7 @@ namespace _1640_Project.Areas.QAM.Controllers
             return View(category);
         }
 
-        // GET: QAM/Categories/Delete/5
+        // GET: Categories/Delete/5
         [QamAuthorization]
         public ActionResult Delete(int? id)
         {
@@ -106,7 +106,7 @@ namespace _1640_Project.Areas.QAM.Controllers
             return View(category);
         }
 
-        // POST: QAM/Categories/Delete/5
+        // POST: Categories/Delete/5
         [QamAuthorization]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

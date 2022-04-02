@@ -49,5 +49,10 @@ namespace _1640_Project.Controllers
         {
             return View();
         }
+
+        public ActionResult Permission()
+        {
+            return View();
+        }
     }
 }

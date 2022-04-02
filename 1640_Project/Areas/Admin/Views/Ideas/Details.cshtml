@@ -4,79 +4,19 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Idea</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Submission.SubmissionName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Submission.SubmissionName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreateDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ViewCount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ViewCount)
-        </dd>
-
-    </dl>
+<div class="w3-container" style="padding:128px 16px">
+    <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16">@Model.Title</h2>
+        <div class="w3-container">
+            <h5 class="w3-opacity"><b>@Model.Category.CategoryName / @Model.Submission.SubmissionName</b></h5>
+            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>@Model.CreateDate</h6>
+            <h6 class="w3-text-teal"><i class="fa fa-user fa-fw w3-margin-right"> </i>@Model.User.Name</h6>
+            <hr />
+            <p>@Model.Content</p>
+            <hr />
+            <p>
+                <a href="/admin/ideas/download?FileName=@Model.FileName&FilePath=@Model.FilePath">@Model.FileName</a>
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdeaID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

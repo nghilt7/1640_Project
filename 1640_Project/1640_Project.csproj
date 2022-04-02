@@ -154,13 +154,9 @@
     <Compile Include="Areas\Admin\Controllers\IdeasController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubmissionsController.cs" />
-    <Compile Include="Areas\QAC\Controllers\HomeController.cs" />
-    <Compile Include="Areas\QAC\QACAreaRegistration.cs" />
-    <Compile Include="Areas\QAM\Controllers\CategoriesController.cs" />
-    <Compile Include="Areas\QAM\Controllers\DownController.cs" />
-    <Compile Include="Areas\QAM\Controllers\HomeController.cs" />
-    <Compile Include="Areas\QAM\QAMAreaRegistration.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\DownController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdeasController.cs" />
     <Compile Include="Filters\AdminAuthorization.cs" />
@@ -244,23 +240,7 @@
     <Content Include="Areas\Admin\Views\Accounts\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Accounts\ChangeProfile.cshtml" />
     <Content Include="Areas\Admin\Views\Accounts\Index.cshtml" />
-    <Content Include="Areas\QAM\Views\web.config" />
-    <Content Include="Areas\QAM\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\QAM\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\QAM\Views\Categories\Create.cshtml" />
-    <Content Include="Areas\QAM\Views\Categories\Delete.cshtml" />
-    <Content Include="Areas\QAM\Views\Categories\Edit.cshtml" />
-    <Content Include="Areas\QAM\Views\Categories\Index.cshtml" />
-    <Content Include="Areas\QAM\Views\Home\Index.cshtml" />
-    <Content Include="Areas\QAC\Views\web.config" />
-    <Content Include="Areas\QAC\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\QAC\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\QAC\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Permission.cshtml" />
-    <Content Include="Areas\QAM\Views\Home\Permission.cshtml" />
-    <Content Include="Areas\QAC\Views\Home\Permission.cshtml" />
-    <Content Include="Areas\QAM\Views\Down\Down.cshtml" />
-    <Content Include="Areas\QAM\Views\Down\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Submissions\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Submissions\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Submissions\Edit.cshtml" />
@@ -387,12 +367,17 @@
     <Content Include="Views\Home\View.cshtml" />
     <Content Include="Views\Home\Category.cshtml" />
     <Content Include="Views\Home\Agree.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Down\Down.cshtml" />
+    <Content Include="Views\Down\Index.cshtml" />
+    <Content Include="Views\Home\Permission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\QAC\Data\" />
-    <Folder Include="Areas\QAM\Data\" />
     <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -52,10 +53,20 @@ namespace _1640_Project.Areas.Admin.Controllers
         [AdminAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea)
+        public ActionResult Create([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file.ContentLength > 0)
+                {
+                    string _FileName = Path.GetFileName(file.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
+                    file.SaveAs(_path);
+                    idea.FilePath = _path;
+                    idea.FileName = _FileName;
+                }
+                idea.CreateDate = DateTime.Now;
+
                 db.Ideas.Add(idea);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,12 +100,33 @@ namespace _1640_Project.Areas.Admin.Controllers
         [AdminAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea)
+        public ActionResult Edit([Bind(Include = "IdeaID,Title,Description,Content,CreateDate,ViewCount,UserID,CategoryID,SubmissionID")] Idea idea, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(idea).State = EntityState.Modified;
+                if (file.ContentLength > 0)
+                {
+                    string _FileName = Path.GetFileName(file.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
+                    file.SaveAs(_path);
+                    idea.FilePath = _path;
+                    idea.FileName = _FileName;
+                }
+
+                Idea existingIdea = db.Ideas.Where(i => i.IdeaID == idea.IdeaID).FirstOrDefault();
+                existingIdea.Title = idea.Title;
+                existingIdea.Description = idea.Description;
+                existingIdea.Content = idea.Content;
+                existingIdea.CreateDate = idea.CreateDate;
+                existingIdea.ViewCount = idea.ViewCount;
+                existingIdea.UserID = idea.UserID;
+                existingIdea.CategoryID = idea.CategoryID;
+                existingIdea.SubmissionID = idea.SubmissionID;
+                existingIdea.FileName = idea.FileName;
+                existingIdea.FilePath = idea.FilePath;
+
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", idea.CategoryID);
@@ -129,6 +161,14 @@ namespace _1640_Project.Areas.Admin.Controllers
             db.Ideas.Remove(idea);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [AdminAuthorization]
+        public FileResult Download(string FileName, string FilePath)
+        {
+            byte[] fileBytes = System.IO.File.ReadAllBytes(FilePath);
+            string fileName = FileName;
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
         protected override void Dispose(bool disposing)

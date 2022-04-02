@@ -83,11 +83,11 @@ namespace _1640_Project.Controllers
                     else if (usr.RoleID == 3)
                     {
                         Session["IsQAM"] = true;
-                        return RedirectToAction("Index", "Home", new { area = "QAM" });
+                        return RedirectToAction("Index", "Home");
                     } else
                     {
                         Session["IsQAC"] = true;
-                        return RedirectToAction("Index", "Home", new { area = "QAC" });
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 else

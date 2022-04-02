@@ -1,30 +1,28 @@
-﻿using System;
+﻿using _1640_Project.Filters;
+using _1640_Project.Models;
+using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.OleDb;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ClosedXML.Excel;
-using _1640_Project.Models;
 
-
-
-namespace _1640_Project.Areas.QAM.Controllers
+namespace _1640_Project.Controllers
 {
     public class DownController : Controller
     {
-        // GET: QAM/Down
         IdeasDbContext db = new IdeasDbContext();
+
+        [QamAuthorization]
         public ActionResult Index()
         {
             List<Submission> submissions = db.Submissions.ToList();
             return View(submissions);
         }
 
+        [QamAuthorization]
         public ActionResult Down(int id)
         {
             List<Idea> ideas = db.Ideas.Where(t => t.SubmissionID == id).ToList();
@@ -32,6 +30,7 @@ namespace _1640_Project.Areas.QAM.Controllers
             return View(ideas);
         }
 
+        [QamAuthorization]
         [HttpPost]
         public FileResult ExportToExcel(int SubID)
         {
@@ -66,6 +65,5 @@ namespace _1640_Project.Areas.QAM.Controllers
                 }
             }
         }
-
     }
 }
