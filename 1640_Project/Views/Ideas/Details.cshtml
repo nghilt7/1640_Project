@@ -163,21 +163,45 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <form action="/ideas/addcomment" method="post">
-                    <h3 class="pull-left">New Comment</h3>
 
-                    <fieldset>
-                        <div class="row">
-                            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
-                                <input type="hidden" name="CommentDate" value="@DateTime.Now" />
-                                <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
-                                <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
-                                <textarea class="form-control" name="Content" placeholder="Your message" required=""></textarea>
-                                <button type="submit" class="btn btn-normal pull-right">Submit</button>
+                @if (ViewBag.Final == 0)
+                {
+                    <form action="/ideas/addcomment?Sub=@Model.SubmissionID" method="post" class="hidden">
+                        <h3 class="pull-left">New Comment</h3>
+
+                        <fieldset>
+                            <div class="row">
+                                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                    <input type="hidden" name="CommentDate" value="@DateTime.Now" />
+                                    <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
+                                    <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
+                                    <textarea class="form-control" name="Content" placeholder="Your message" required=""></textarea>
+                                    <button type="submit" class="btn btn-normal pull-right">Submit</button>
+                                </div>
                             </div>
-                        </div>
-                    </fieldset>
-                </form>
+                        </fieldset>
+                    </form>
+                }
+                else
+                {
+                    <form action="/ideas/addcomment?Sub=@Model.SubmissionID" method="post">
+                        <h3 class="pull-left">New Comment</h3>
+
+                        <fieldset>
+                            <div class="row">
+                                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                    <input type="hidden" name="CommentDate" value="@DateTime.Now" />
+                                    <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
+                                    <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
+                                    <textarea class="form-control" name="Content" placeholder="Your message" required=""></textarea>
+                                    <button type="submit" class="btn btn-normal pull-right">Submit</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                }
+
+
 
                 @if (Model.CommentCount == 0)
                 {
@@ -194,15 +218,27 @@
                                 <li><i class="fa fa-calendar"></i>@Model.Comments[i].CommentDate</li>
                             </ul>
                             @*<ul class="list-unstyled list-inline media-detail pull-right">
-            <li class=""><a href="">Like</a></li>
-        </ul>*@
+                        <li class=""><a href="">Like</a></li>
+                    </ul>*@
                             @if (Convert.ToInt32(Session["CurrentUserID"]) == Model.Comments[i].UserID)
                             {
-                                <ul class="list-unstyled list-inline media-detail pull-right mr-2">
-                                    <li class=""><a href="" id="button-edit">Edit</a></li>
-                                </ul>
 
-                                <form action="/ideas/editcomment" method="post" id="edit-form" class="hidden">
+                                if (ViewBag.Final == 0)
+                                {
+                                    <ul class="list-unstyled list-inline media-detail pull-right mr-2 hidden">
+                                        <li class=""><a href="" id="button-edit">Edit</a></li>
+                                    </ul>
+                                }
+                                            else
+                                {
+                                    <ul class="list-unstyled list-inline media-detail pull-right mr-2">
+                                        <li class=""><a href="" id="button-edit">Edit</a></li>
+                                    </ul>
+                                }
+
+                                
+
+                                <form action="/ideas/editcomment?Sub=@Model.SubmissionID" method="post" id="edit-form" class="hidden">
                                     <fieldset>
                                         <div class="row">
                                             <div class="form-group col-xs-12 col-sm-9 col-lg-10">

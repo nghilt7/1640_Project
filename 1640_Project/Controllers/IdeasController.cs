@@ -25,20 +25,25 @@ namespace _1640_Project.Controllers
         }
 
         // GET: Ideas/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int idea, int sub)
         {
-            if (id == null)
+            Idea ideas = db.Ideas.Find(idea);
+            ideas.ViewCount++;
+
+            //Check Final Deadline
+            Submission Submit = db.Submissions.Where(s => s.SubmissionID == sub).FirstOrDefault();
+            int result = DateTime.Compare(Submit.FinalDate, DateTime.Now);
+            if (result < 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.Final = 0;
             }
-            Idea idea = db.Ideas.Find(id);
-            if (idea == null)
+            else
             {
-                return HttpNotFound();
+                ViewBag.Final = 1;
             }
-            idea.ViewCount++;
+
             db.SaveChanges();
-            return View(idea);
+            return View(ideas);
         }
 
         [UserAuthorization]
@@ -189,7 +194,7 @@ namespace _1640_Project.Controllers
 
         [UserAuthorization]
         [HttpPost]
-        public ActionResult AddComment(Comment comment)
+        public ActionResult AddComment(int Sub, Comment comment)
         {
             Idea idea = db.Ideas.Where(i => i.IdeaID == comment.IdeaID).FirstOrDefault();
             if (idea != null)
@@ -199,12 +204,12 @@ namespace _1640_Project.Controllers
                 db.SaveChanges();
             }
             
-            return RedirectToAction("Details", "Ideas", new { id = comment.IdeaID });
+            return RedirectToAction("Details", "Ideas", new { idea = comment.IdeaID, sub = Sub });
         }
 
         [UserAuthorization]
         [HttpPost]
-        public ActionResult EditComment(Comment cm)
+        public ActionResult EditComment(int Sub, Comment cm)
         {
             Comment comment = db.Comments.Where(c => c.CommentID == cm.CommentID).FirstOrDefault();
             if (comment != null)
@@ -216,7 +221,7 @@ namespace _1640_Project.Controllers
                 db.SaveChanges();
             }
             
-            return RedirectToAction("Details", "Ideas", new { id = cm.IdeaID });
+            return RedirectToAction("Details", "Ideas", new { idea = comment.IdeaID, sub = Sub });
         }
 
         [UserAuthorization]

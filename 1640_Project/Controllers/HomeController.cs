@@ -63,7 +63,19 @@ namespace _1640_Project.Controllers
                     ideas[i].CurrentUserVoteType = 0;
                 }
             }
-            
+
+            //Check Close Deadline
+            Submission Submit = db.Submissions.Where(s => s.SubmissionID == Sub).FirstOrDefault();
+            int result = DateTime.Compare(Submit.CloseDate, DateTime.Now);
+            if (result < 0)
+            {
+                ViewBag.Deadline = 0;
+            }
+            else
+            {
+                ViewBag.DeadLine = 1;
+            }
+
             db.SaveChanges();
 
             return View(ideas);
