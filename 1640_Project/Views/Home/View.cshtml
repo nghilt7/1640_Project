@@ -118,7 +118,7 @@
             }
             else if (item.CurrentUserVoteType > 0 && item.UserID != Convert.ToInt32(Session["CurrentUserID"]))
             {
-                <form action="/ideas/like?idea=@item.IdeaID&sub=@item.SubmissionID&user=@Session["CurrentUserID"]" method="post" class="w3-theme-d1 w3-margin-bottom">
+                <form action="/ideas/dislike?idea=@item.IdeaID&sub=@item.SubmissionID&user=@Session["CurrentUserID"]" method="post" class="w3-theme-d1 w3-margin-bottom">
                     <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
                     <input type="hidden" name="IdeaID" value="@item.IdeaID" />
                     <input type="hidden" name="VoteValue" value="-1" />

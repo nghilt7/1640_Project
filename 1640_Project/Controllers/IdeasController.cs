@@ -230,9 +230,9 @@ namespace _1640_Project.Controllers
         {
             Idea ideas = db.Ideas.Where(i => i.IdeaID == idea).FirstOrDefault();
             Vote vt = db.Votes.Where(v => v.UserID == user && v.IdeaID == vote.IdeaID).FirstOrDefault();
+            ideas.VotesCount++;
             if (vt != null)
-            {
-                    ideas.VotesCount += vote.VoteValue;
+            {            
                     ideas.CurrentUserVoteType = vote.VoteValue;
                     vt.VoteValue = vote.VoteValue;    
             } 
@@ -252,14 +252,14 @@ namespace _1640_Project.Controllers
         {
             Idea ideas = db.Ideas.Where(i => i.IdeaID == idea).FirstOrDefault();
             Vote vt = db.Votes.Where(v => v.UserID == user && v.IdeaID == vote.IdeaID).FirstOrDefault();
+            ideas.VotesCount--;
             if (vt != null)
             {
-                ideas.VotesCount += vote.VoteValue;
                 vt.VoteValue = vote.VoteValue;
                 ideas.CurrentUserVoteType = vote.VoteValue;
                 db.SaveChanges();
             }
-            return RedirectToAction("Details", "Ideas", new { sub = sub });
+            return RedirectToAction("View", "Home", new { sub = sub });
         }
 
         [UserAuthorization]
