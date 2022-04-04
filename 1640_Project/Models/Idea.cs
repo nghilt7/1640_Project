@@ -21,7 +21,8 @@ namespace _1640_Project.Models
         public int VotesCount { get; set; }
         public string FileName { get; set; }
         public string FilePath { get; set; }
-       
+        public int CurrentUserVoteType { get; set; }
+
         public int UserID { get; set; }
 
         [Display(Name = "Category")]

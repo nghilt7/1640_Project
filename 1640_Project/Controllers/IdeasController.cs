@@ -227,12 +227,14 @@ namespace _1640_Project.Controllers
             Vote vt = db.Votes.Where(v => v.UserID == user && v.IdeaID == vote.IdeaID).FirstOrDefault();
             if (vt != null)
             {
-                ideas.VotesCount += vote.VoteValue;
-                vt.VoteValue = vote.VoteValue;
+                    ideas.VotesCount += vote.VoteValue;
+                    ideas.CurrentUserVoteType = vote.VoteValue;
+                    vt.VoteValue = vote.VoteValue;    
             } 
             else
             {
-                db.Votes.Add(vote); 
+                db.Votes.Add(vote);
+                ideas.CurrentUserVoteType = vote.VoteValue;
             }
             db.SaveChanges();
 
@@ -247,8 +249,9 @@ namespace _1640_Project.Controllers
             Vote vt = db.Votes.Where(v => v.UserID == user && v.IdeaID == vote.IdeaID).FirstOrDefault();
             if (vt != null)
             {
-                ideas.VotesCount--;
-                vt.VoteValue = -1;
+                ideas.VotesCount += vote.VoteValue;
+                vt.VoteValue = vote.VoteValue;
+                ideas.CurrentUserVoteType = vote.VoteValue;
                 db.SaveChanges();
             }
             return RedirectToAction("Details", "Ideas", new { sub = sub });

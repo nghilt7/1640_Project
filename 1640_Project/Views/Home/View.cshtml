@@ -17,6 +17,17 @@
 
         .has-search .form-control {
             padding-left: 2.375rem;
+            margin-bottom: 1rem;
+        }
+
+        .sorting {
+            padding: 1.5rem;
+        }
+
+        .slogan {
+            margin-top: 3.5rem;
+            text-align: center;
+            margin-bottom: 0;
         }
 
         .has-search .form-control-feedback {
@@ -33,14 +44,27 @@
     </style>
 </header>
 
-<div class="w3-container" style="padding:128px 16px">
+<h2 class="slogan">WELCOME, WE HAPPY TO SEE YOU THERE</h2>
 
-    <div class="form-group has-search">
+<div class="w3-container" style="padding:10px 16px">
+
+    <div class="w3-container w3-card w3-white w3-round w3-margin form-group has-search" style="padding: 1.5rem">
         <form action="/home/view">
             <span class="fa fa-search form-control-feedback"></span>
             <input type="hidden" name="Sub" value="@ViewBag.SubID" />
             <input class="form-control" type="search" name="Search" placeholder="Search" value="@ViewBag.Search" />
         </form>
+
+        <span>
+            <a class="sorting" href="/home/view?Sub=@ViewBag.SubID&SortColumn=TopView">Top View Ideas</a>
+        </span>
+        <span>
+            <a class="sorting" href="/home/view?Sub=@ViewBag.SubID&SortColumn=TopLike">Top Like Ideas</a>
+        </span>
+        <span>
+            <a class="sorting" href="/home/view?Sub=@ViewBag.SubID&SortColumn=Newest">Newest Ideas</a>
+        </span>
+
     </div>
 
     <div class="w3-row-padding">
@@ -62,48 +86,36 @@
 
     @foreach (var item in Model)
     {
-        <div class="w3-container w3-card w3-white w3-round w3-margin">
-            <br>
-            <h4><a href="/ideas/details/@item.IdeaID">@item.Title</a></h4><br>
-            <p>Upload in: @item.CreateDate by: @item.User.Name</p>
+<div class="w3-container w3-card w3-white w3-round w3-margin">
+    <br>
+    <h4><a href="/ideas/details/@item.IdeaID">@item.Title</a></h4><br>
+    <p>Upload in: @item.CreateDate by: @item.User.Name</p>
 
-            @if (item.VotesCount == 0)
-            {
-                <form action="/ideas/like?idea=@item.IdeaID&sub=@item.SubmissionID&user=@Session["CurrentUserID"]" method="post" class="w3-theme-d1 w3-margin-bottom">
-                    <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
-                    <input type="hidden" name="IdeaID" value="@item.IdeaID" />
-                    <input type="hidden" name="VoteValue" value="1" />
-                    <button type="submit" class="w3-button"><i class="fa fa-thumbs-up"></i> Like</button>
-                </form>
-            }
-            else
-            {
-                for (int i = 0; i < item.VotesCount; i++)
-                {
-                    if (item.Votes[i].VoteValue < 1)
-                    {
-                        <form action="/ideas/like?idea=@item.IdeaID&sub=@item.SubmissionID&user=@Session["CurrentUserID"]" method="post" class="w3-theme-d1 w3-margin-bottom">
-                            <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
-                            <input type="hidden" name="IdeaID" value="@item.IdeaID" />
-                            <input type="hidden" name="VoteValue" value="1" />
-                            <button type="submit" class="w3-button"><i class="fa fa-thumbs-up"></i> Like</button>
-                        </form>
-                    }
-                    else
-                    {
-                        <form action="/ideas/like?idea=@item.IdeaID&sub=@item.SubmissionID&user=@Session["CurrentUserID"]" method="post" class="w3-theme-d1 w3-margin-bottom">
-                            <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
-                            <input type="hidden" name="IdeaID" value="@item.IdeaID" />
-                            <input type="hidden" name="VoteValue" value="-1" />
-                            <button type="submit" class="w3-button"><i class="fa fa-thumbs-up"></i> DisLike</button>
-                        </form>
-                    }
-                }
-            }
+    @if (item.CurrentUserVoteType < 1 && item.UserID != Convert.ToInt32(Session["CurrentUserID"]))
+    {
+        <form action="/ideas/like?idea=@item.IdeaID&sub=@item.SubmissionID&user=@Session["CurrentUserID"]" method="post" class="w3-theme-d1 w3-margin-bottom">
+            <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
+            <input type="hidden" name="IdeaID" value="@item.IdeaID" />
+            <input type="hidden" name="VoteValue" value="1" />
+            <button type="submit" class="w3-button"><i class="fa fa-thumbs-o-up"></i> Like</button>
+        </form>
+    }
+    else if (item.CurrentUserVoteType > 0 && item.UserID != Convert.ToInt32(Session["CurrentUserID"]))
+    {
+        <form action="/ideas/like?idea=@item.IdeaID&sub=@item.SubmissionID&user=@Session["CurrentUserID"]" method="post" class="w3-theme-d1 w3-margin-bottom">
+            <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
+            <input type="hidden" name="IdeaID" value="@item.IdeaID" />
+            <input type="hidden" name="VoteValue" value="-1" />
+            <button type="submit" class="w3-button"><i class="fa fa-thumbs-up"></i> DisLike</button>
+        </form>
+    }
 
-            <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  @item.CommentCount</button>
-            <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  @item.Category.CategoryName</button>
-        </div>
+
+    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  @item.CommentCount</button>
+    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-address-book"></i>  @item.Category.CategoryName</button>
+    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  @item.VotesCount</button>
+    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-eye"></i>  @item.ViewCount</button>
+</div>
     }
 
 </div>

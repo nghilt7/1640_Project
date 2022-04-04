@@ -41,7 +41,7 @@
                             <h6 class="mb-0">Title</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @required="required" } })
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                             @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -69,6 +69,7 @@
                     @Html.TextBoxFor(model => model.ViewCount, new { @Value = 0, @type = "hidden" })
                     @Html.TextBoxFor(model => model.UserID, new { @Value = Session["CurrentUserID"], @type = "hidden" })
                     @Html.TextBoxFor(model => model.SubmissionID, new { @Value = ViewBag.submit, @type = "hidden" })
+                    @Html.TextBoxFor(model => model.CurrentUserVoteType, new { @Value = 0, @type = "hidden" })
                     <hr>
                     <div class="row">
                         <div class="col-sm-3">
@@ -85,7 +86,7 @@
                             <h6 class="mb-0">File</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            <input type="file" name="file" required /> 
+                            <input type="file" name="file" required />
                         </div>
                     </div>
                     <hr>
