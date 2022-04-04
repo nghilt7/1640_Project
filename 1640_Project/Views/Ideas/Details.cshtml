@@ -194,6 +194,7 @@
                                     <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
                                     <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
                                     <textarea class="form-control" name="Content" placeholder="Your message" required=""></textarea>
+                                    <input type="checkbox" name="IsHidden" value="true"/> Hidden
                                     <button type="submit" class="btn btn-normal pull-right">Submit</button>
                                 </div>
                             </div>
@@ -212,14 +213,21 @@
                 {
                     <div class="media">
                         <div class="media-body">
-                            <h4 class="media-heading">@Model.Comments[i].User.Name</h4>
+                            @if (Model.Comments[i].IsHidden == true)
+                            {
+                                <h4 class="media-heading">Anonymous</h4>
+                            }
+                            else
+                            {
+                                <h4 class="media-heading">@Model.Comments[i].User.Name</h4>
+                            }
                             <p>@Model.Comments[i].Content</p>
                             <ul class="list-unstyled list-inline media-detail pull-left">
                                 <li><i class="fa fa-calendar"></i>@Model.Comments[i].CommentDate</li>
                             </ul>
                             @*<ul class="list-unstyled list-inline media-detail pull-right">
-                        <li class=""><a href="">Like</a></li>
-                    </ul>*@
+            <li class=""><a href="">Like</a></li>
+        </ul>*@
                             @if (Convert.ToInt32(Session["CurrentUserID"]) == Model.Comments[i].UserID)
                             {
 
@@ -229,14 +237,14 @@
                                         <li class=""><a href="" id="button-edit">Edit</a></li>
                                     </ul>
                                 }
-                                            else
+                                else
                                 {
                                     <ul class="list-unstyled list-inline media-detail pull-right mr-2">
                                         <li class=""><a href="" id="button-edit">Edit</a></li>
                                     </ul>
                                 }
 
-                                
+
 
                                 <form action="/ideas/editcomment?Sub=@Model.SubmissionID" method="post" id="edit-form" class="hidden">
                                     <fieldset>
@@ -246,6 +254,7 @@
                                                 <input type="hidden" name="CommentDate" value="@DateTime.Now" />
                                                 <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
                                                 <input type="hidden" name="UserID" value="@Session["CurrentUserID"]" />
+                                                <input type="hidden" name="IsHidden" value="@Model.Comments[i].IsHidden" /> Hidden
                                                 <textarea class="form-control" name="Content" placeholder="@Model.Comments[i].Content" required=""></textarea>
                                                 <button type="submit" class="btn btn-normal pull-right">Edit</button>
                                             </div>
