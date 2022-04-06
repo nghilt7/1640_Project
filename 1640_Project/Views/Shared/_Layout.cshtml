@@ -60,6 +60,11 @@
         }
         @if (Session["CurrentUserName"] != null)
         {
+            if (Convert.ToBoolean(Session["IsQAM"]) == true)
+            {
+                <a href="/categories" onclick="w3_close()" class="w3-bar-item w3-button">CATEGORY</a>
+                <a href="/down" onclick="w3_close()" class="w3-bar-item w3-button">DOWNLOAD DATA</a>
+            }
             <a href="/ideas/index/@Session["CurrentUserID"]" onclick="w3_close()" class="w3-bar-item w3-button">MY IDEAS</a>
             <a href="/accounts/logout" onclick="w3_close()" class="w3-bar-item w3-button">LOGOUT</a>
             <a href="/accounts/changeprofile/@Session["CurrentUserID"]" onclick="w3_close()" class="w3-bar-item w3-button">CHANGE PROFILE</a>

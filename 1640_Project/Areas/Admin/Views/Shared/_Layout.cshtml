@@ -47,16 +47,15 @@
     <!-- Sidebar on small screens when clicking the menu icon -->
     <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
         <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
-        @if (Session["CurrentUserName"] == null)
+        @if (Convert.ToBoolean(Session["IsAdmin"]) == true)
         {
-            <a href="/accounts/login" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
-            <a href="/accounts/register" onclick="w3_close()" class="w3-bar-item w3-button">REGISTER</a>
-        }
-        @if (Session["CurrentUserName"] != null)
-        {
-            <a href="/ideas/index/@Session["CurrentUserID"]" onclick="w3_close()" class="w3-bar-item w3-button">MY IDEAS</a>
+            <a href="/admin/departments" onclick="w3_close()" class="w3-bar-item w3-button">DEPARTMENT</a>
+            <a href="/admin/roles" onclick="w3_close()" class="w3-bar-item w3-button">ROLE</a>
+            <a href="/admin/categories" onclick="w3_close()" class="w3-bar-item w3-button">CATEGORY</a>
+            <a href="/admin/accounts" onclick="w3_close()" class="w3-bar-item w3-button">ACCOUNT</a>
+            <a href="/admin/submissions" onclick="w3_close()" class="w3-bar-item w3-button">SUBMISSIONS</a>
+            <a href="/admin/ideas" onclick="w3_close()" class="w3-bar-item w3-button">IDEAS</a>
             <a href="/accounts/logout" onclick="w3_close()" class="w3-bar-item w3-button">LOGOUT</a>
-            <a href="/accounts/changeprofile/@Session["CurrentUserID"]" onclick="w3_close()" class="w3-bar-item w3-button">CHANGE PROFILE</a>
         }
     </nav>
 
