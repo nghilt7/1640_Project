@@ -1,6 +1,7 @@
 ﻿using _1640_Project.Filters;
 using _1640_Project.Models;
 using ClosedXML.Excel;
+using Ionic.Zip;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -64,6 +65,22 @@ namespace _1640_Project.Controllers
                     return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ExcelFile.xlsx");
                 }
             }
+        }
+
+        [HttpPost]
+        public ActionResult DownloadZip()
+        {
+            Response.Clear();
+            Response.BufferOutput = false;
+            Response.ContentType = "application/zip";
+            Response.AddHeader("content-disposition", "attachment; filename= All_Ideas.zip");
+
+            using (ZipFile zipfile = new ZipFile())
+            {
+                zipfile.AddSelectedFiles("*.*", Server.MapPath("~/UploadedFiles/"), "", false);
+                zipfile.Save(Response.OutputStream);
+            }
+            return RedirectToAction("Index");
         }
     }
 }
