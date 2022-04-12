@@ -86,7 +86,7 @@
     {
         <div class="card p-3">
             <div class="d-flex justify-content-between align-items-center">
-                <div class="user d-flex flex-row align-items-center"><span class="font-weight-bold text-primary"><a href="/ideas/details/@item.IdeaID">@item.Title</a></span></div> <small><i class="fa fa-calendar fa-fw w3-margin-right"></i> @item.CreateDate</small>
+                <div class="user d-flex flex-row align-items-center"><span class="font-weight-bold text-primary"><a href="/ideas/details?idea=@item.IdeaID&sub=@item.SubmissionID">@item.Title</a></span></div> <small><i class="fa fa-calendar fa-fw w3-margin-right"></i> @item.CreateDate</small>
             </div>
             <div class="action d-flex justify-content-between mt-2 align-items-center">
                 <div class="reply px-4"> <small><a href="/ideas/edit/@item.IdeaID">Edit</a></small> <span class="dots"></span> <small><a href="/ideas/delete/@item.IdeaID">Delete</a></small> </div>
